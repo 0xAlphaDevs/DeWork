@@ -9,9 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "connectkit": "^1.6.0",
     "next": "14.0.4",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "viem": "1.x",
+    "wagmi": "1.x"
   },
   "devDependencies": {
     "@types/node": "^20",
