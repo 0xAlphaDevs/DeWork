@@ -10,7 +10,7 @@ export type Job = {
   jobId: string;
   title: string;
   description: string;
-  status: string;
+  status: "active" | "closed";
   tags: string[];
   budget: number;
   proposals: number;
@@ -20,7 +20,7 @@ export type Job = {
 export type Proposal = {
   proposalId: string;
   jobId: string;
-  status: string;
+  status: "pending" | "accepted" | "rejected";
   createdAt: string;
   createdBy: string;
 };
