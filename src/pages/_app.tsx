@@ -34,7 +34,7 @@ export default function App({ Component, pageProps }: AppProps) {
       disableTransitionOnChange
     >
       <WagmiConfig config={config}>
-        <ConnectKitProvider>
+        <ConnectKitProvider theme="rounded">
           <Component {...pageProps} />
         </ConnectKitProvider>
       </WagmiConfig>

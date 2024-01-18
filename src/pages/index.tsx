@@ -12,6 +12,14 @@ import {
 import { useAccount } from "wagmi";
 import getUser from "@/lib/hooks/getUser";
 import { useRouter } from "next/router";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 export default function Home() {
   const router = useRouter();
@@ -85,6 +93,40 @@ export default function Home() {
         <ConnectKitButton />
       </div>
       {/* Features card div */}
+      <div className="grid grid-cols-3 gap-8 px-20 pb-8 ">
+        <Card className="bg-opacity-65 shadow-lg dark:bg-purple-300 dark:bg-opacity-15 cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110">
+          <CardHeader>
+            <CardTitle className="text-center">Feature Heading</CardTitle>
+            <CardDescription className="dark:text-white">
+              Lorem Ipsum has been the industry's standard dummy text ever since
+              the 1500s, when an unknown printer took a galley of type and
+              scrambled it to make a type specimen book.
+            </CardDescription>
+          </CardHeader>
+        </Card>
+
+        <Card className="bg-opacity-65 shadow-lg dark:bg-purple-300 dark:bg-opacity-15 cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110">
+          <CardHeader>
+            <CardTitle className="text-center">Feature Heading</CardTitle>
+            <CardDescription className="dark:text-white">
+              Lorem Ipsum has been the industry's standard dummy text ever since
+              the 1500s, when an unknown printer took a galley of type and
+              scrambled it to make a type specimen book.Feature Description
+            </CardDescription>
+          </CardHeader>
+        </Card>
+
+        <Card className="bg-opacity-65 shadow-lg dark:bg-purple-300 dark:bg-opacity-15 cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110">
+          <CardHeader>
+            <CardTitle className="text-center">Feature Heading</CardTitle>
+            <CardDescription className="dark:text-white">
+              Lorem Ipsum has been the industry's standard dummy text ever since
+              the 1500s, when an unknown printer took a galley of type and
+              scrambled it to make a type specimen book.
+            </CardDescription>
+          </CardHeader>
+        </Card>
+      </div>
 
       <div className="container mx-auto py-8 ">
         <hr className="border-t-2 border-gray-600 dark:border-white mb-4" />
