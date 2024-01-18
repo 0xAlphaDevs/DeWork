@@ -20,11 +20,21 @@ export default function Home() {
 
   async function checkUser(address: string) {
     const res = await getUser(address);
-    if (res.userType === "client") {
-      router.push("/client-dashboard");
-    }
-    if (res.userType === "freelancer") {
-      router.push("/dashboard");
+    if (res) {
+      switch (res.userType) {
+        case "client":
+          console.log("client wallet connected");
+          router.push("/client-dashboard");
+          break;
+        case "freelancer":
+          console.log("freelancer wallet connected");
+          router.push("/dashboard");
+          break;
+        default:
+          console.log("user not found. Please sign up");
+
+          break;
+      }
     }
   }
 
