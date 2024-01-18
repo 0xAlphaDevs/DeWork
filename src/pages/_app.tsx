@@ -6,6 +6,7 @@ import {
   ConnectKitButton,
   getDefaultConfig,
 } from "connectkit";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const config = createConfig(
   getDefaultConfig({
@@ -25,10 +26,17 @@ const config = createConfig(
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <WagmiConfig config={config}>
-      <ConnectKitProvider>
-        <Component {...pageProps} />
-      </ConnectKitProvider>
-    </WagmiConfig>
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="light"
+      enableSystem
+      disableTransitionOnChange
+    >
+      <WagmiConfig config={config}>
+        <ConnectKitProvider>
+          <Component {...pageProps} />
+        </ConnectKitProvider>
+      </WagmiConfig>
+    </ThemeProvider>
   );
 }
