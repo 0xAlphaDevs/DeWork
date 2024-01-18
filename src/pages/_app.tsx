@@ -18,7 +18,8 @@ const config = createConfig(
     appName: "DeWork",
 
     // Optional
-    appDescription: "Your App Description",
+    appDescription:
+      "A Decentralized freelancing platform connecting businesses and professionals.",
     appUrl: "https://family.co",
     appIcon: "https://family.co/logo.png", // your app's icon, no bigger than 1024x1024px (max. 1MB)
   })

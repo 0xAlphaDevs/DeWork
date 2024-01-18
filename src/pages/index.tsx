@@ -44,14 +44,15 @@ export default function Home() {
         <h1 className="text-6xl font-bold dark:text-purple-50">
           Welcome to DeWork
         </h1>
-        <p className="text-5xl dark:text-purple-100 text-center">
-          Description will go here
+        <p className="text-3xl dark:text-purple-100 text-center">
+          A Decentralized freelancing platform connecting businesses and
+          professionals
         </p>
         <ConnectKitButton />
       </div>
       {/* Features card div */}
 
-      <div className="container mx-auto py-8">
+      <div className="container mx-auto py-8 ">
         <hr className="border-t-2 border-gray-600 dark:border-white mb-4" />
         <div className="flex justify-center items-center">
           <p>&copy; 2024 DeWork. All rights reserved.</p>
