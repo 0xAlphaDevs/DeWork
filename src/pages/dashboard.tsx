@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useAccount } from "wagmi";
 import { useRouter } from "next/router";
 import getUser from "@/lib/hooks/getUser";
+import { Navbar } from "@/components/app/navbar";
 
 const Dashboard = () => {
   const router = useRouter();
@@ -31,9 +32,14 @@ const Dashboard = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address]);
   return (
-    <div className="flex justify-center items-center h-screen text-xl">
-      Freelancer Dashboard
-    </div>
+    <>
+      <div className="px-8 py-4">
+        <Navbar />
+      </div>
+      <div className="flex justify-center items-center h-screen text-xl">
+        Freelancer Dashboard
+      </div>
+    </>
   );
 };
 

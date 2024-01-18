@@ -7,12 +7,14 @@ import {
   getDefaultConfig,
 } from "connectkit";
 import { ThemeProvider } from "@/components/theme-provider";
+import { polygonMumbai, sepolia } from "viem/chains";
 
 const config = createConfig(
   getDefaultConfig({
     // Required API Keys
     alchemyId: process.env.ALCHEMY_ID, // or infuraId
     walletConnectProjectId: process.env.WALLETCONNECT_PROJECT_ID || "",
+    chains: [sepolia, polygonMumbai],
 
     // Required
     appName: "DeWork",

@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import { ConnectKitButton } from "connectkit";
 
-export function ClientNavbar() {
+export function Navbar() {
   return (
     <div className="flex justify-between">
       <NavigationMenu>
@@ -22,14 +22,7 @@ export function ClientNavbar() {
           <NavigationMenuItem>
             <Link href="/client-dashboard" legacyBehavior passHref>
               <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                Find Work
-              </NavigationMenuLink>
-            </Link>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <Link href="/test" legacyBehavior passHref>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                Sent Proposals
+                Listed Jobs
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>
