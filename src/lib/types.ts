@@ -7,7 +7,7 @@ export type User = {
 };
 
 export type Job = {
-  jonId: string;
+  jobId: string;
   title: string;
   description: string;
   status: string;
