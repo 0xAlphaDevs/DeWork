@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ConnectKitButton } from "connectkit";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
@@ -9,9 +9,33 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useAccount } from "wagmi";
+import getUser from "@/lib/hooks/getUser";
+import { useRouter } from "next/router";
 
 export default function Home() {
+  const router = useRouter();
   const { setTheme } = useTheme();
+  const { address } = useAccount();
+
+  async function checkUser(address: string) {
+    const res = await getUser(address);
+    if (res.userType === "client") {
+      router.push("/client-dashboard");
+    }
+    if (res.userType === "freelancer") {
+      router.push("/dashboard");
+    }
+  }
+
+  useEffect(() => {
+    if (address) {
+      console.log("wallet connected", address);
+      checkUser(address);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [address]);
+
   return (
     <div>
       <div className="flex justify-between px-8 pt-4">

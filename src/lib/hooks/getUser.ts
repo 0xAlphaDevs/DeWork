@@ -5,7 +5,7 @@ export default async function getUser(walletAddress: string): Promise<User> {
     {
       name: "John Doe",
       location: "United States",
-      userType: "client",
+      userType: "freelancer",
       rating: 4.5,
       ghoSpent: 1000,
     },
