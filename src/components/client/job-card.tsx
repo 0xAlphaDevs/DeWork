@@ -13,6 +13,12 @@ import {
 import { getAllActiveJobs } from "@/lib/hooks/getJobs";
 import { Job } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
+import {
+  BadgeDollarSignIcon,
+  BookUser,
+  Briefcase,
+  Calendar,
+} from "lucide-react";
 
 type CardProps = React.ComponentProps<typeof Card>;
 
@@ -37,7 +43,7 @@ export function JobCard({ className, ...props }: CardProps) {
         <Card
           key={job.jobId}
           className={cn(
-            "bg-opacity-65 shadow-lg dark:bg-purple-300 dark:bg-opacity-15 cursor-pointer ",
+            "bg-opacity-65 shadow-lg dark:bg-purple-300 dark:bg-opacity-15",
             className
           )}
           {...props}
@@ -46,7 +52,7 @@ export function JobCard({ className, ...props }: CardProps) {
             <CardTitle className="flex justify-between items-center">
               {job.title}
               <p className="px-2 py-1 text-white text-sm font-bold rounded-md bg-green-800 dark:text-black dark:bg-white">
-                {job.jobId}
+                Job ID : {job.jobId}
               </p>
             </CardTitle>
             <CardDescription>
@@ -54,23 +60,37 @@ export function JobCard({ className, ...props }: CardProps) {
             </CardDescription>
           </CardHeader>
           <CardContent className="grid gap-4">
-            <div className="flex gap-4">
-              {job.tags.map((tag, index) => (
-                <Badge
-                  key={index}
-                  className="text-sm bg-green-900 dark:bg-purple-50 "
-                >
-                  {tag}
-                </Badge>
-              ))}
+            <div className="flex gap-2 items-center">
+              <Briefcase className="h-5" />
+              <div className="flex gap-4">
+                <p className="text-lg font-thin">Skills Required :</p>
+                {job.tags.map((tag, index) => (
+                  <Badge
+                    key={index}
+                    className="text-sm bg-green-900 dark:bg-purple-50 "
+                  >
+                    {tag}
+                  </Badge>
+                ))}
+              </div>
             </div>
-            <div className="flex justify-between  ">
-              <p>Offer: {job.budget}</p>
-              <p>Current Proposals: {job.proposals}</p>
+            <div className="flex gap-2 items-center">
+              <BadgeDollarSignIcon className="h-5" />
+              <p className="text-lg font-thin">Budget : ${job.budget}</p>
+            </div>
+            <div className="flex gap-2 items-center">
+              <BookUser className="h-5" />
+              <p className="text-lg font-thin">
+                Total Recieved Proposals : {job.proposals}
+              </p>
             </div>
           </CardContent>
           <CardFooter className="flex justify-between">
-            <p>{job.createdAt}</p>
+            <div className="flex gap-2 items-center">
+              <Calendar className="h-5" />
+              <p className="font-semibold">Posted Date : {job.createdAt}</p>
+            </div>
+
             <div className="flex gap-4">
               <Button>View Proposal</Button>
               <Button>Close Job</Button>
