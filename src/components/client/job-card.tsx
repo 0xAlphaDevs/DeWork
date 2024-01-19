@@ -61,7 +61,7 @@ export function JobCard({ className, ...props }: CardProps) {
                 </Badge>
               ))}
             </div>
-            <div className="flex justify-between shadow-lg font-semibold p-2 rounded-lg border border-green-100 dark:border-purple-100">
+            <div className="flex justify-between shadow-lg dark:shadow-xl font-semibold p-2 rounded-lg border border-green-100 dark:border-purple-700/35">
               <p>Offer: {job.budget}</p>
               <p>Current Proposals: {job.proposals}</p>
             </div>
