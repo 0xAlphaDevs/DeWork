@@ -29,6 +29,7 @@ export function JobCard({ className, ...props }: CardProps) {
     const fetchData = async () => {
       try {
         const data = await getAllActiveJobs();
+        // instead of  getAllActiveJobs fetch data from getAllJobsByCreator
         setJobs(data);
       } catch (error) {
         console.error("Error fetching job data:", error);

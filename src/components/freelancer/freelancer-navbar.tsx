@@ -30,7 +30,12 @@ export function FreelancerNavbar() {
   return (
     <div className="flex justify-between">
       <div className="flex items-center gap-20">
-        <p className="text-2xl font-bold dark:text-purple-50">DeWork</p>
+        <h1 className="text-2xl font-bold relative mr-12 dark:text-purple-50">
+          DeWork{" "}
+          <sup className="text-sm font-semibold absolute ml-2 dark:text-purple-50">
+            Freelancer
+          </sup>
+        </h1>
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
