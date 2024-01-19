@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { BellIcon, CheckIcon } from "@radix-ui/react-icons";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/router";
 import {
   Card,
   CardContent,
@@ -10,7 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { getAllActiveJobs } from "@/lib/hooks/getJobs";
+import { getAllJobsByCreator } from "@/lib/hooks/getJobs";
 import { Job } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -24,12 +25,12 @@ type CardProps = React.ComponentProps<typeof Card>;
 
 export function JobCard({ className, ...props }: CardProps) {
   const [jobs, setJobs] = useState<Job[]>([]);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getAllActiveJobs();
-        // instead of  getAllActiveJobs fetch data from getAllJobsByCreator
+        const data = await getAllJobsByCreator("");
         setJobs(data);
       } catch (error) {
         console.error("Error fetching job data:", error);
@@ -37,6 +38,10 @@ export function JobCard({ className, ...props }: CardProps) {
     };
     fetchData();
   }, []);
+
+  const handleViewProposal = (jobId: string) => {
+    router.push(`/client/received-proposals/${jobId}`);
+  };
 
   return (
     <div className="p-8 grid gap-8 ">
@@ -93,7 +98,9 @@ export function JobCard({ className, ...props }: CardProps) {
             </div>
 
             <div className="flex gap-4">
-              <Button>View Proposal</Button>
+              <Button onClick={() => handleViewProposal(job.jobId)}>
+                View Proposal
+              </Button>
               <Button>Close Job</Button>
             </div>
           </CardFooter>

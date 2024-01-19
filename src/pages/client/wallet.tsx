@@ -52,7 +52,7 @@ const Wallet = () => {
           <Card className=" bg-opacity-65 shadow-lg dark:bg-purple-300 dark:bg-opacity-15">
             <CardHeader className="flex justify-center items-center">
               <CardTitle>Balances</CardTitle>
-              <div className="border border-solid border-purple-800 w-full" />
+              <div className="border border-solid border-green-800 dark:border-purple-800 w-full" />
             </CardHeader>
             <CardContent className="flex flex-col gap-8 items-left">
               <p className="font-bold text-lg">Sepolia Testnet</p>
