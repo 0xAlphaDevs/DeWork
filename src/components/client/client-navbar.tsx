@@ -34,11 +34,11 @@ export function ClientNavbar() {
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
-              <Link href="/client-dashboard" legacyBehavior passHref>
+              <Link href="/client/dashboard" legacyBehavior passHref>
                 <NavigationMenuLink
                   className={cn(
                     navigationMenuTriggerStyle(),
-                    isActiveRoute("/client-dashboard")
+                    isActiveRoute("/client/dashboard")
                       ? "bg-green-300 dark:bg-purple-800  "
                       : ""
                   )}
@@ -48,7 +48,7 @@ export function ClientNavbar() {
               </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href="/ongoing-jobs" legacyBehavior passHref>
+              <Link href="/client/ongoing-jobs" legacyBehavior passHref>
                 <NavigationMenuLink
                   className={cn(
                     navigationMenuTriggerStyle(),

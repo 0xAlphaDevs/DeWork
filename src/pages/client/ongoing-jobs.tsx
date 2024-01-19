@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useAccount } from "wagmi";
 import { useRouter } from "next/router";
 import getUser from "@/lib/hooks/getUser";
-import { FreelancerNavbar } from "@/components/freelancer/freelancer-navbar";
+import { ClientNavbar } from "@/components/client/client-navbar";
 
 const OngoingJobs = () => {
   const router = useRouter();
@@ -12,8 +12,8 @@ const OngoingJobs = () => {
     const res = await getUser(address);
     if (res) {
       switch (res.userType) {
-        case "freelancer":
-          console.log("freelancer wallet connected");
+        case "client":
+          console.log("client wallet connected");
           break;
         default:
           console.log("You are not client wallet. Redirecting to home page");
@@ -34,10 +34,10 @@ const OngoingJobs = () => {
   return (
     <>
       <div className="px-8 py-4">
-        <FreelancerNavbar />
+        <ClientNavbar />
       </div>
       <div className="flex justify-center items-center h-screen text-xl">
-        Freelancer Ongoing Jobs
+        Ongoing Jobs
       </div>
     </>
   );

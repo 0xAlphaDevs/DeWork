@@ -62,11 +62,11 @@ export function FreelancerNavbar() {
               </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href="/test" legacyBehavior passHref>
+              <Link href="/ongoing-jobs" legacyBehavior passHref>
                 <NavigationMenuLink
                   className={cn(
                     navigationMenuTriggerStyle(),
-                    isActiveRoute("/test")
+                    isActiveRoute("/ongoing-jobs")
                       ? "bg-green-300 dark:bg-purple-800  "
                       : ""
                   )}

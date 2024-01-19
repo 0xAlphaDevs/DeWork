@@ -32,7 +32,7 @@ export default function Home() {
       switch (res.userType) {
         case "client":
           console.log("client wallet connected");
-          router.push("/client-dashboard");
+          router.push("/client/dashboard");
           break;
         case "freelancer":
           console.log("freelancer wallet connected");
