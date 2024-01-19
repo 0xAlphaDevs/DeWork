@@ -23,6 +23,8 @@ import {
 
 type CardProps = React.ComponentProps<typeof Card>;
 
+// TO DO : pass props and move fetch logic to client/dashboard.tsx
+
 export function JobCard({ className, ...props }: CardProps) {
   const [jobs, setJobs] = useState<Job[]>([]);
   const router = useRouter();
