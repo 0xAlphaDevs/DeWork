@@ -62,7 +62,6 @@ export async function getProposalByProposalId(
 }
 
 export async function getAllProposalsByCreator(
-  jobId: string,
   walletAddress: string
 ): Promise<Proposal[]> {
   const data: Proposal[] = [
