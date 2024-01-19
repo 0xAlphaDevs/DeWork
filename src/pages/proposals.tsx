@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import { useAccount } from "wagmi";
 import { useRouter } from "next/router";
 import getUser from "@/lib/hooks/getUser";
-import { Navbar } from "@/components/app/navbar";
 import { FreelancerNavbar } from "@/components/freelancer/freelancer-navbar";
+import { SendProposalTable } from "@/components/freelancer/send-proposal-table";
 
 const Proposals = () => {
   const router = useRouter();
@@ -37,8 +37,8 @@ const Proposals = () => {
       <div className="px-8 py-4">
         <FreelancerNavbar />
       </div>
-      <div className="flex justify-center items-center h-screen text-xl">
-        Sent Proposals
+      <div className="">
+        <SendProposalTable />
       </div>
     </>
   );
