@@ -2,18 +2,17 @@
 
 import * as React from "react";
 import Link from "next/link";
-
 import { cn } from "@/lib/utils";
 import { Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
+import { useRouter } from "next/router";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -25,6 +24,9 @@ import { ConnectKitButton } from "connectkit";
 
 export function FreelancerNavbar() {
   const { setTheme } = useTheme();
+  const router = useRouter();
+  const isActiveRoute = (route: string) => router.pathname === route;
+
   return (
     <div className="flex justify-between">
       <div className="flex items-center gap-20">
@@ -32,22 +34,43 @@ export function FreelancerNavbar() {
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
-              <Link href="/client-dashboard" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              <Link href="/dashboard" legacyBehavior passHref>
+                <NavigationMenuLink
+                  className={cn(
+                    navigationMenuTriggerStyle(),
+                    isActiveRoute("/dashboard")
+                      ? "bg-green-300 dark:bg-purple-800  "
+                      : ""
+                  )}
+                >
                   Find Work
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href="/test" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              <Link href="/proposals" legacyBehavior passHref>
+                <NavigationMenuLink
+                  className={cn(
+                    navigationMenuTriggerStyle(),
+                    isActiveRoute("/proposals")
+                      ? "bg-green-300 dark:bg-purple-800  "
+                      : ""
+                  )}
+                >
                   Sent Proposals
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
               <Link href="/test" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                <NavigationMenuLink
+                  className={cn(
+                    navigationMenuTriggerStyle(),
+                    isActiveRoute("/test")
+                      ? "bg-green-300 dark:bg-purple-800  "
+                      : ""
+                  )}
+                >
                   Ongoing Jobs
                 </NavigationMenuLink>
               </Link>
