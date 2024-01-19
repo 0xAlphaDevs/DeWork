@@ -3,6 +3,7 @@ import { useAccount } from "wagmi";
 import { useRouter } from "next/router";
 import getUser from "@/lib/hooks/getUser";
 import { FreelancerNavbar } from "@/components/freelancer/freelancer-navbar";
+import { OngoinJobtable } from "@/components/freelancer/ongoing-job-table";
 
 const OngoingJobs = () => {
   const router = useRouter();
@@ -36,8 +37,8 @@ const OngoingJobs = () => {
       <div className="px-8 py-4">
         <FreelancerNavbar />
       </div>
-      <div className="flex justify-center items-center h-screen text-xl">
-        Freelancer Ongoing Jobs
+      <div className="flex justify-center items-center">
+        <OngoinJobtable />
       </div>
     </>
   );
