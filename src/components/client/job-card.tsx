@@ -67,7 +67,7 @@ export function JobCard({ className, ...props }: CardProps) {
                 {job.tags.map((tag, index) => (
                   <Badge
                     key={index}
-                    className="text-sm bg-green-900 dark:bg-purple-50 "
+                    className="text-sm bg-green-900 dark:bg-purple-500 dark:text-white "
                   >
                     {tag}
                   </Badge>
