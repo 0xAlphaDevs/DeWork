@@ -61,6 +61,20 @@ export function ClientNavbar() {
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
+            <NavigationMenuItem>
+              <Link href="/client/wallet" legacyBehavior passHref>
+                <NavigationMenuLink
+                  className={cn(
+                    navigationMenuTriggerStyle(),
+                    isActiveRoute("/client/wallet")
+                      ? "bg-green-300 dark:bg-purple-800  "
+                      : ""
+                  )}
+                >
+                  Your Wallet
+                </NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
       </div>
