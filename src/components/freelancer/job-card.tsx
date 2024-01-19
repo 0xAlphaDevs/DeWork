@@ -18,7 +18,7 @@ import {
   Briefcase,
   Calendar,
 } from "lucide-react";
-import SendProposal from "./send-proposal";
+import SendProposalForm from "./send-proposal-form";
 
 type CardProps = React.ComponentProps<typeof Card>;
 
@@ -91,7 +91,7 @@ export function JobCard({ className, ...props }: CardProps) {
               <p className="font-semibold">Posted Date : {job.createdAt}</p>
             </div>
             <div className="flex gap-4">
-              <SendProposal />
+              <SendProposalForm />
             </div>
           </CardFooter>
         </Card>

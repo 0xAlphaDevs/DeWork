@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { PlusCircledIcon, CheckCircledIcon } from "@radix-ui/react-icons";
 
-const SendProposal = () => {
+const SendProposalForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [sendRequestSuccess, setSendRequestSuccess] = useState(false);
   const [formData, setFormData] = useState({
@@ -154,4 +154,4 @@ const SendProposal = () => {
   );
 };
 
-export default SendProposal;
+export default SendProposalForm;
