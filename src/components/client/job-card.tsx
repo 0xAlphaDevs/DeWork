@@ -53,14 +53,17 @@ export function JobCard({ className, ...props }: CardProps) {
           <CardContent className="grid gap-4">
             <div className="flex gap-4">
               {job.tags.map((tag, index) => (
-                <Badge key={index} className="text-sm bg-green-900 ">
+                <Badge
+                  key={index}
+                  className="text-sm bg-green-900 dark:bg-purple-50 "
+                >
                   {tag}
                 </Badge>
               ))}
             </div>
-            <div className="flex justify-between">
+            <div className="flex justify-between shadow-lg font-semibold p-2 rounded-lg border border-green-100 dark:border-purple-100">
               <p>Offer: {job.budget}</p>
-              <p>{job.proposals}</p>
+              <p>Current Proposals: {job.proposals}</p>
             </div>
           </CardContent>
           <CardFooter className="flex justify-between">
