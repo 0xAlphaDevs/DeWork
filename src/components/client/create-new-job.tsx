@@ -18,24 +18,38 @@ const CreateNewJobForm = () => {
   const [sendRequestSuccess, setSendRequestSuccess] = useState(false);
   const [formData, setFormData] = useState({
     title: "",
+    description: "",
+    tags: [],
+    budget: "",
   });
 
   function handleClick() {
     // reset all state values
     setFormData({
       title: "",
+      description: "",
+      tags: [],
+      budget: "",
     });
     setSendRequestSuccess(false);
     setIsLoading(false);
   }
 
-  const constructJobData = (title: string) => {
+  const constructJobData = (
+    title: string,
+    description: string,
+    tags: string[],
+    budget: string
+  ) => {
     const currentDate = new Date().toLocaleDateString();
     const currentTime = new Date().toLocaleTimeString();
 
     const newJobData = {
       title: title,
-      requestedOn: `${currentDate} ${currentTime}`,
+      description: description,
+      tags: tags,
+      budget: budget,
+      createdAt: `${currentDate} ${currentTime}`,
     };
     return newJobData;
   };
@@ -43,7 +57,12 @@ const CreateNewJobForm = () => {
   async function sendData() {
     try {
       setIsLoading(true);
-      const newJobData = constructJobData(formData.title);
+      const newJobData = constructJobData(
+        formData.title,
+        formData.description,
+        formData.tags,
+        formData.budget
+      );
       console.log(" Data: ", newJobData);
 
       //   const result = await saveJobData(formData.title);
@@ -99,7 +118,7 @@ const CreateNewJobForm = () => {
                           Job title
                         </Label>
                         <Input
-                          id="username"
+                          id="title"
                           placeholder="Blockchain developer"
                           className="col-span-3"
                           value={formData.title}
@@ -107,6 +126,60 @@ const CreateNewJobForm = () => {
                             setFormData({
                               ...formData,
                               title: e.target.value,
+                            })
+                          }
+                          required
+                        />
+                      </div>
+                      <div className="grid grid-cols-4 items-center gap-4">
+                        <Label htmlFor="description" className="text-right">
+                          Description
+                        </Label>
+                        <Input
+                          id="description"
+                          placeholder="Blockchain developer"
+                          className="col-span-3"
+                          value={formData.description}
+                          onChange={(e: { target: { value: any } }) =>
+                            setFormData({
+                              ...formData,
+                              description: e.target.value,
+                            })
+                          }
+                          required
+                        />
+                      </div>
+                      <div className="grid grid-cols-4 items-center gap-4">
+                        <Label htmlFor="tags" className="text-right">
+                          Tags
+                        </Label>
+                        <Input
+                          id="Tags"
+                          placeholder="Blockchain developer"
+                          className="col-span-3"
+                          value={formData.tags}
+                          onChange={(e: { target: { value: any } }) =>
+                            setFormData({
+                              ...formData,
+                              tags: e.target.value,
+                            })
+                          }
+                          required
+                        />
+                      </div>
+                      <div className="grid grid-cols-4 items-center gap-4">
+                        <Label htmlFor="budget" className="text-right">
+                          Budget
+                        </Label>
+                        <Input
+                          id="Tags"
+                          placeholder="Blockchain developer"
+                          className="col-span-3"
+                          value={formData.budget}
+                          onChange={(e: { target: { value: any } }) =>
+                            setFormData({
+                              ...formData,
+                              budget: e.target.value,
                             })
                           }
                           required
