@@ -2,18 +2,17 @@
 
 import * as React from "react";
 import Link from "next/link";
-
 import { cn } from "@/lib/utils";
 import { Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
+import { useRouter } from "next/router";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -25,6 +24,9 @@ import { ConnectKitButton } from "connectkit";
 
 export function ClientNavbar() {
   const { setTheme } = useTheme();
+  const router = useRouter();
+  const isActiveRoute = (route: string) => router.pathname === route;
+
   return (
     <div className="flex justify-between">
       <div className="flex items-center gap-20">
@@ -33,14 +35,28 @@ export function ClientNavbar() {
           <NavigationMenuList>
             <NavigationMenuItem>
               <Link href="/client-dashboard" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                <NavigationMenuLink
+                  className={cn(
+                    navigationMenuTriggerStyle(),
+                    isActiveRoute("/client-dashboard")
+                      ? "bg-green-300 dark:bg-purple-800  "
+                      : ""
+                  )}
+                >
                   Listed Jobs
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href="/test" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              <Link href="/ongoing-jobs" legacyBehavior passHref>
+                <NavigationMenuLink
+                  className={cn(
+                    navigationMenuTriggerStyle(),
+                    isActiveRoute("/ongoing-jobs")
+                      ? "bg-green-300 dark:bg-purple-800  "
+                      : ""
+                  )}
+                >
                   Ongoing Jobs
                 </NavigationMenuLink>
               </Link>
