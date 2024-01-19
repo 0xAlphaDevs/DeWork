@@ -52,7 +52,7 @@ export function ClientNavbar() {
                 <NavigationMenuLink
                   className={cn(
                     navigationMenuTriggerStyle(),
-                    isActiveRoute("/ongoing-jobs")
+                    isActiveRoute("/client/ongoing-jobs")
                       ? "bg-green-300 dark:bg-purple-800  "
                       : ""
                   )}
