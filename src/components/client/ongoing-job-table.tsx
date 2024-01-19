@@ -45,6 +45,7 @@ const data: Payment[] = [
     amount: 316,
     status: "success",
     email: "ken99@yahoo.com",
+    startDate: new Date("2024-01-19"),
   },
 ];
 
@@ -53,6 +54,7 @@ export type Payment = {
   amount: number;
   status: "pending" | "processing" | "success" | "failed";
   email: string;
+  startDate: Date;
 };
 
 export const columns: ColumnDef<Payment>[] = [
@@ -77,15 +79,17 @@ export const columns: ColumnDef<Payment>[] = [
     accessorKey: "startDate",
     header: () => <div className="">Start Date</div>,
     cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"));
-      const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      }).format(amount);
+      const startDate = new Date(row.getValue("startDate"));
+      const formattedDate = startDate.toLocaleDateString();
 
-      return <div className=" font-medium">{formatted}</div>;
+      return (
+        <div className=" font-semibold px-2 bg-green-50 hover:text-white hover:bg-green-900 dark:bg-purple-200 dark:text-purple-900 dark:hover:text-purple-300 dark:hover:bg-purple-900 inline-block rounded-full ">
+          {formattedDate}
+        </div>
+      );
     },
   },
+
   {
     accessorKey: "budget",
     header: () => <div className="">Budget</div>,
