@@ -52,6 +52,7 @@ export function FreelancerNavbar() {
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
+
             <NavigationMenuItem>
               <Link href="/proposals" legacyBehavior passHref>
                 <NavigationMenuLink
@@ -77,6 +78,20 @@ export function FreelancerNavbar() {
                   )}
                 >
                   Ongoing Jobs
+                </NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <Link href="/wallet" legacyBehavior passHref>
+                <NavigationMenuLink
+                  className={cn(
+                    navigationMenuTriggerStyle(),
+                    isActiveRoute("/wallet")
+                      ? "bg-green-300 dark:bg-purple-800  "
+                      : ""
+                  )}
+                >
+                  Your Wallet
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
