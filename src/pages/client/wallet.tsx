@@ -3,7 +3,6 @@ import { useAccount } from "wagmi";
 import { useRouter } from "next/router";
 import getUser from "@/lib/hooks/getUser";
 import { ClientNavbar } from "@/components/client/client-navbar";
-import { OngoinJobtable } from "@/components/client/ongoing-job-table";
 import {
   Card,
   CardContent,
@@ -12,6 +11,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 const Wallet = () => {
   const router = useRouter();
@@ -48,30 +49,30 @@ const Wallet = () => {
       <div className="flex flex-col gap-20 p-12">
         <p className="flex justify-center font-semibold text-6xl">Hello , X</p>
         <div className="grid grid-cols-3 gap-20">
-          <Card className="h-[350px] bg-opacity-65 shadow-lg dark:bg-purple-300 dark:bg-opacity-15">
-            <CardHeader>
-              <CardTitle>Card Title</CardTitle>
-              <CardDescription>Card Description</CardDescription>
+          <Card className=" bg-opacity-65 shadow-lg dark:bg-purple-300 dark:bg-opacity-15">
+            <CardHeader className="flex justify-center items-center">
+              <CardTitle>Balances</CardTitle>
+              <div className="border border-solid border-purple-800 w-full" />
             </CardHeader>
-            <CardContent>
-              <p>Card Content</p>
+            <CardContent className="flex flex-col gap-8 items-center">
+              <div>GHO</div>
+              <div>ETH</div>
+              <div>USDT</div>
             </CardContent>
-            <CardFooter>
-              <p>Card Footer</p>
-            </CardFooter>
           </Card>
 
           <Card className="col-span-2 bg-opacity-65 shadow-lg dark:bg-purple-300 dark:bg-opacity-15">
-            <CardHeader>
-              <CardTitle>Card Title</CardTitle>
-              <CardDescription>Card Description</CardDescription>
+            <CardHeader className="flex justify-center items-center">
+              <CardTitle>Exchange</CardTitle>
             </CardHeader>
-            <CardContent>
-              <p>Card Content</p>
+            <CardContent className="flex flex-col gap-4 justify-center items-center">
+              <p>Description</p>
+              <Input
+                placeholder="Enter the amount to send"
+                className="max-w-sm w-96  border-green-900 dark:bg-purple-100 dark:text-purple-900"
+              />
+              <Button>Send</Button>
             </CardContent>
-            <CardFooter>
-              <p>Card Footer</p>
-            </CardFooter>
           </Card>
         </div>
       </div>
