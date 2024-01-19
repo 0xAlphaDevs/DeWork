@@ -3,6 +3,7 @@ import { useAccount } from "wagmi";
 import { useRouter } from "next/router";
 import getUser from "@/lib/hooks/getUser";
 import { Navbar } from "@/components/app/navbar";
+import { FreelancerNavbar } from "@/components/freelancer/freelancer-navbar";
 
 const Dashboard = () => {
   const router = useRouter();
@@ -34,7 +35,7 @@ const Dashboard = () => {
   return (
     <>
       <div className="px-8 py-4">
-        <Navbar />
+        <FreelancerNavbar />
       </div>
       <div className="flex justify-center items-center h-screen text-xl">
         Freelancer Dashboard

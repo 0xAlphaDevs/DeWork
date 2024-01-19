@@ -23,7 +23,10 @@ export default async function getUser(walletAddress: string): Promise<User> {
     walletAddress === "0x1C6fa4aD2Ff12713dc260fB133064B221bE49e47"
   ) {
     return data[0];
-  } else if (walletAddress === "0x811BA0F133153677Fe9809540dd301c28743BF87") {
+  } else if (
+    walletAddress === "0x811BA0F133153677Fe9809540dd301c28743BF87" ||
+    walletAddress === "0x88Fe8c1b47d999b03132319d30B515cE3ABC0aFA"
+  ) {
     return data[1];
   } else {
     return { name: "", location: "", userType: "na", rating: 0, ghoSpent: 0 };
