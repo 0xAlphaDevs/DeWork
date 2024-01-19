@@ -59,11 +59,17 @@ const Dashboard = () => {
       </div>
       <div className="flex flex-col px-8 py-4">
         <div className="text-4xl px-8 py-8 font-semibold ">All Active Jobs</div>
-        {jobs.map((job: Job) => (
-          <>
-            <JobCard key={job.jobId} job={job} />
-          </>
-        ))}
+        {jobs.length > 0 ? (
+          jobs.map((job: Job) => (
+            <>
+              <JobCard key={job.jobId} job={job} />
+            </>
+          ))
+        ) : (
+          <div className="text-2xl px-8 py-8 font-semibold text-center">
+            No Active Jobs
+          </div>
+        )}
       </div>
     </>
   );

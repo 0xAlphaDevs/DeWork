@@ -34,7 +34,7 @@ export function JobCard({ job }: { job: Job }) {
           <CardTitle className="flex justify-between items-center">
             {job.title}
             <p className="px-2 py-1 text-white text-sm font-bold rounded-md bg-green-800 dark:text-black dark:bg-white">
-              Job Id : {job.jobId}
+              Job Id : {job.jobId.toString()}
             </p>
           </CardTitle>
           <CardDescription>
