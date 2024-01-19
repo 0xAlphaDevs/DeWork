@@ -37,7 +37,7 @@ export function JobCard({ className, ...props }: CardProps) {
         <Card
           key={job.jobId}
           className={cn(
-            "bg-opacity-65 shadow-lg dark:bg-purple-300 dark:bg-opacity-15 cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-105 ",
+            "bg-opacity-65 shadow-lg dark:bg-purple-300 dark:bg-opacity-15 cursor-pointer ",
             className
           )}
           {...props}
@@ -64,14 +64,17 @@ export function JobCard({ className, ...props }: CardProps) {
                 </Badge>
               ))}
             </div>
-            <div className="flex justify-between shadow-lg bg-green-50 dark:bg-dialogColor font-semibold p-2 rounded-lg ">
+            <div className="flex justify-between  ">
               <p>Offer: {job.budget}</p>
               <p>Current Proposals: {job.proposals}</p>
             </div>
           </CardContent>
           <CardFooter className="flex justify-between">
             <p>{job.createdAt}</p>
-            <Button>Close Job</Button>
+            <div className="flex gap-4">
+              <Button>View Proposal</Button>
+              <Button>Close Job</Button>
+            </div>
           </CardFooter>
         </Card>
       ))}
