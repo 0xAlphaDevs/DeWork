@@ -52,7 +52,7 @@ export function JobCard({ className, ...props }: CardProps) {
             <CardTitle className="flex justify-between items-center">
               {job.title}
               <p className="px-2 py-1 text-white text-sm font-bold rounded-md bg-green-800 dark:text-black dark:bg-white">
-                Posted By : wallet Address
+                Job Id : {job.jobId}
               </p>
             </CardTitle>
             <CardDescription>
@@ -82,6 +82,15 @@ export function JobCard({ className, ...props }: CardProps) {
               <BookUser className="h-5" />
               <p className="text-lg font-thin">
                 Total Proposals : {job.proposals}
+              </p>
+            </div>
+            <div className="flex gap-2 items-center">
+              <BookUser className="h-5" />
+              <p className="text-lg font-thin">
+                Creator :{" "}
+                <span className="text-blue-600 font-normal cursor-pointer">
+                  {job.createdBy}
+                </span>
               </p>
             </div>
           </CardContent>

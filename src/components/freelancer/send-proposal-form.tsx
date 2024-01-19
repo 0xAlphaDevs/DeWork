@@ -90,7 +90,7 @@ const SendProposalForm = () => {
               {!sendRequestSuccess ? (
                 <>
                   <DialogHeader>
-                    <DialogTitle>Create New Job.</DialogTitle>
+                    <DialogTitle>Send a Proposal.</DialogTitle>
                     <DialogDescription>
                       Enter details to send a proposal.
                     </DialogDescription>
@@ -103,7 +103,7 @@ const SendProposalForm = () => {
                         </Label>
                         <Input
                           id="description"
-                          placeholder="Blockchain developer"
+                          placeholder="Write a description"
                           className="col-span-3"
                           value={formData.description}
                           onChange={(e: { target: { value: any } }) =>
@@ -118,11 +118,12 @@ const SendProposalForm = () => {
 
                       <div className="grid grid-cols-4 items-center gap-4">
                         <Label htmlFor="budget" className="text-right">
-                          Budget
+                          Bid
                         </Label>
                         <Input
                           id="Tags"
-                          placeholder="Blockchain developer"
+                          type="number"
+                          placeholder="enter your bid"
                           className="col-span-3"
                           value={formData.budget}
                           onChange={(e: { target: { value: any } }) =>

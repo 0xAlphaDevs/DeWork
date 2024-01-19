@@ -11,6 +11,7 @@ export async function getAllActiveJobs(): Promise<Job[]> {
       budget: 500,
       proposals: 3,
       createdAt: "2021-09-01T00:00:00.000Z",
+      createdBy: "0x1233485635793458934759834759834759834759",
     },
     {
       jobId: "2",
@@ -21,6 +22,7 @@ export async function getAllActiveJobs(): Promise<Job[]> {
       budget: 1000,
       proposals: 3,
       createdAt: "2021-09-01T00:00:00.000Z",
+      createdBy: "0x1233485635793458934759834759834759834759",
     },
     {
       jobId: "3",
@@ -31,6 +33,7 @@ export async function getAllActiveJobs(): Promise<Job[]> {
       budget: 1500,
       proposals: 3,
       createdAt: "2021-09-01T00:00:00.000Z",
+      createdBy: "0x1233485635793458934759834759834759834759",
     },
   ];
 
@@ -49,6 +52,7 @@ export async function getJobByJobId(jobId: string): Promise<Job> {
       budget: 500,
       proposals: 3,
       createdAt: "2021-09-01T00:00:00.000Z",
+      createdBy: "0x1233485635793458934759834759834759834759",
     },
     {
       jobId: "2",
@@ -59,6 +63,7 @@ export async function getJobByJobId(jobId: string): Promise<Job> {
       budget: 1000,
       proposals: 3,
       createdAt: "2021-09-01T00:00:00.000Z",
+      createdBy: "0x1233485635793458934759834759834759834759",
     },
     {
       jobId: "3",
@@ -69,6 +74,7 @@ export async function getJobByJobId(jobId: string): Promise<Job> {
       budget: 1500,
       proposals: 3,
       createdAt: "2021-09-01T00:00:00.000Z",
+      createdBy: "0x1233485635793458934759834759834759834759",
     },
   ];
 
@@ -88,6 +94,7 @@ export async function getAllJobsByCreator(
       budget: 500,
       proposals: 3,
       createdAt: "2021-09-01T00:00:00.000Z",
+      createdBy: "0x1233485635793458934759834759834759834759",
     },
     {
       jobId: "2",
@@ -98,6 +105,7 @@ export async function getAllJobsByCreator(
       budget: 1000,
       proposals: 3,
       createdAt: "2021-09-01T00:00:00.000Z",
+      createdBy: "0x1233485635793458934759834759834759834759",
     },
     {
       jobId: "3",
@@ -108,6 +116,7 @@ export async function getAllJobsByCreator(
       budget: 1500,
       proposals: 3,
       createdAt: "2021-09-01T00:00:00.000Z",
+      createdBy: "0x1233485635793458934759834759834759834759",
     },
   ];
 

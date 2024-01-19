@@ -15,6 +15,7 @@ export type Job = {
   budget: number;
   proposals: number;
   createdAt: string;
+  createdBy: string;
 };
 
 export type Proposal = {

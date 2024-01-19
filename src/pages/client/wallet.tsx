@@ -79,11 +79,11 @@ const Wallet = () => {
             </CardContent>
           </Card>
 
-          <Card className="col-span-2 bg-opacity-65 shadow-lg dark:bg-purple-300 dark:bg-opacity-15">
-            <CardHeader className="flex justify-center items-left">
+          <Card className="col-span-2 bg-opacity-65 shadow-lg dark:bg-purple-300 dark:bg-opacity-15 flex items-center flex-col justify-center gap-10">
+            <CardHeader className="flex justify-center items-center">
               <CardTitle>Bridge GHO to Polygon Mumbai Testnet</CardTitle>
             </CardHeader>
-            <CardContent className="flex flex-col gap-4 justify-center items-left">
+            <CardContent className="flex flex-col gap-6 justify-center items-center">
               <p>Amount of GHO to bridge</p>
               <Input
                 type="number"
