@@ -176,7 +176,6 @@ export function OngoinJobtable() {
 
   return (
     <div className="w-full p-12 ">
-      <p></p>
       <div className="flex items-center py-4">
         <Input
           placeholder="Search a job..."
@@ -184,11 +183,14 @@ export function OngoinJobtable() {
           onChange={(event) =>
             table.getColumn("email")?.setFilterValue(event.target.value)
           }
-          className="max-w-sm"
+          className="max-w-sm w-96 font-semibold border-green-900 dark:bg-purple-100 dark:text-purple-900"
         />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
+            <Button
+              variant="outline"
+              className="ml-auto bg-green-300 dark:bg-purple-800 dark:hover:bg-purple-700"
+            >
               Columns <ChevronDownIcon className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
@@ -213,14 +215,20 @@ export function OngoinJobtable() {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <div className="rounded-md border">
+      <div className="rounded-md border z-10 shadow-md bg-green-400 bg-opacity-20 dark:shadow-purple-300 my-4 z-80 dark:bg-purple-300 dark:bg-opacity-15">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
+              <TableRow
+                key={headerGroup.id}
+                className="dark:hover:bg-purple-300/10"
+              >
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead
+                      key={header.id}
+                      className="font-bold dark:text-white "
+                    >
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -239,6 +247,7 @@ export function OngoinJobtable() {
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  className="font-thin hover:text-green-800 dark:hover:bg-purple-300/10 dark:hover:text-purple-50"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
