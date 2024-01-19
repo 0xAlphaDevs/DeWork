@@ -3,16 +3,10 @@ import { useAccount } from "wagmi";
 import { useRouter } from "next/router";
 import getUser from "@/lib/hooks/getUser";
 import { ClientNavbar } from "@/components/client/client-navbar";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { MapPin, Star } from "lucide-react";
 
 const Wallet = () => {
   const router = useRouter();
@@ -47,7 +41,24 @@ const Wallet = () => {
         <ClientNavbar />
       </div>
       <div className="flex flex-col gap-20 p-12">
-        <p className="flex justify-center font-semibold text-6xl">Hello , X</p>
+        <Card className=" bg-opacity-65 shadow-lg dark:bg-purple-300 dark:bg-opacity-15">
+          <CardHeader className="flex justify-center items-center">
+            <CardTitle className="flex justify-center font-semibold text-6xl">
+              Hello , X
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="flex justify-around gap-8 items-left">
+            <div className="flex gap-2 items-center">
+              <MapPin />
+              <p className="font-thin text-lg">Location</p>
+            </div>
+
+            <div className="flex gap-2 items-center">
+              <p className="font-thin text-lg">Rating</p>
+              <Star />
+            </div>
+          </CardContent>
+        </Card>
         <div className="grid grid-cols-3 gap-20">
           <Card className=" bg-opacity-65 shadow-lg dark:bg-purple-300 dark:bg-opacity-15">
             <CardHeader className="flex justify-center items-center">
