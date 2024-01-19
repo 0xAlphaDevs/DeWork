@@ -5,14 +5,27 @@ import getUser from "@/lib/hooks/getUser";
 import { Navbar } from "@/components/app/navbar";
 import { FreelancerNavbar } from "@/components/freelancer/freelancer-navbar";
 import { JobCard } from "@/components/freelancer/job-card";
-import { getAllActiveJobs } from "@/lib/hooks/getJobs";
 import { Job } from "@/lib/types";
+import { deworkContract } from "@/lib/contracts";
+import { useContractRead } from "wagmi";
 
 const Dashboard = () => {
   const router = useRouter();
   const { address } = useAccount();
-
   const [jobs, setJobs] = useState<Job[]>([]);
+
+  const { data } = useContractRead({
+    abi: deworkContract.abi,
+    address: "0xeDe54e20dD081FE70cAE3fa46689E12d175117be",
+    functionName: "getAllActiveJobs",
+  });
+
+  useEffect(() => {
+    if (data) {
+      setJobs(data as Job[]);
+    }
+  }, [data]);
+
   const [filteredJobs, setFilteredJobs] = useState<Job[]>([]); // TO DO
 
   async function checkUser(address: string) {
@@ -30,21 +43,11 @@ const Dashboard = () => {
     }
   }
 
-  const fetchData = async () => {
-    try {
-      const data = await getAllActiveJobs();
-      setJobs(data);
-    } catch (error) {
-      console.error("Error fetching job data:", error);
-    }
-  };
-
   useEffect(() => {
     if (!address) {
       router.push("/");
     } else {
       checkUser(address);
-      fetchData();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address]);

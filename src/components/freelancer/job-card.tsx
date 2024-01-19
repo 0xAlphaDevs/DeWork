@@ -9,7 +9,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { getAllActiveJobs } from "@/lib/hooks/getJobs";
 import { Job } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -59,7 +58,9 @@ export function JobCard({ job }: { job: Job }) {
           </div>
           <div className="flex gap-2 items-center">
             <BadgeDollarSignIcon className="h-5" />
-            <p className="text-lg font-thin">Budget : ${job.budget}</p>
+            <p className="text-lg font-thin">
+              Budget : $ {job.budget.toString()}
+            </p>
           </div>
           <div className="flex gap-2 items-center">
             <BookUser className="h-5" />
