@@ -46,7 +46,7 @@ const CreateNewJobForm = () => {
       const newJobData = constructJobData(formData.title);
       console.log(" Data: ", newJobData);
 
-      const result = await saveJobData(formData.title);
+      //   const result = await saveJobData(formData.title);
 
       setIsLoading(false);
       setSendRequestSuccess(true);
