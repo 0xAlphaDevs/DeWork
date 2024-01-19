@@ -30,6 +30,7 @@ export async function getAllActiveProposals(
   return data;
 }
 
+// not of much use
 export async function getProposalByProposalId(
   proposalId: string,
   jobId: string

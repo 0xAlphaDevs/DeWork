@@ -37,6 +37,7 @@ export async function getAllActiveJobs(): Promise<Job[]> {
   return data;
 }
 
+// not of much use
 export async function getJobByJobId(jobId: string): Promise<Job> {
   const data: Job[] = [
     {

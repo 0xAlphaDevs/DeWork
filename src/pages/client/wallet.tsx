@@ -54,24 +54,28 @@ const Wallet = () => {
               <CardTitle>Balances</CardTitle>
               <div className="border border-solid border-purple-800 w-full" />
             </CardHeader>
-            <CardContent className="flex flex-col gap-8 items-center">
-              <div>GHO</div>
-              <div>ETH</div>
-              <div>USDT</div>
+            <CardContent className="flex flex-col gap-8 items-left">
+              <p className="font-bold text-lg">Sepolia Testnet</p>
+              <div>GHO Balance : {"100 GHO"} </div>
+              <div>ETH Balance : {"0 ETH"}</div>
+              <p className="font-bold text-lg">Polygon Mumbai Testnet</p>
+              <div>GHO Balance : {"0 GHO"}</div>
+              <div>MATIC Balance : {"0 ETH"}</div>
             </CardContent>
           </Card>
 
           <Card className="col-span-2 bg-opacity-65 shadow-lg dark:bg-purple-300 dark:bg-opacity-15">
-            <CardHeader className="flex justify-center items-center">
-              <CardTitle>Exchange</CardTitle>
+            <CardHeader className="flex justify-center items-left">
+              <CardTitle>Bridge GHO to Polygon Mumbai Testnet</CardTitle>
             </CardHeader>
-            <CardContent className="flex flex-col gap-4 justify-center items-center">
-              <p>Description</p>
+            <CardContent className="flex flex-col gap-4 justify-center items-left">
+              <p>Amount of GHO to bridge</p>
               <Input
+                type="number"
                 placeholder="Enter the amount to send"
                 className="max-w-sm w-96  border-green-900 dark:bg-purple-100 dark:text-purple-900"
               />
-              <Button>Send</Button>
+              <Button className="w-96">Send</Button>
             </CardContent>
           </Card>
         </div>
