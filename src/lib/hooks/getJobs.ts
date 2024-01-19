@@ -4,7 +4,7 @@ export async function getAllActiveJobs(): Promise<Job[]> {
   const data: Job[] = [
     {
       jobId: "1",
-      title: "Build a website",
+      title: "Web Developer",
       description: "Build a website for my business",
       status: "active",
       tags: ["web", "design"],
@@ -14,7 +14,7 @@ export async function getAllActiveJobs(): Promise<Job[]> {
     },
     {
       jobId: "2",
-      title: "Build a mobile app",
+      title: "Android Devloper",
       description: "Build a mobile app for my business",
       status: "active",
       tags: ["mobile", "design"],
@@ -24,7 +24,7 @@ export async function getAllActiveJobs(): Promise<Job[]> {
     },
     {
       jobId: "3",
-      title: "Build a smart contract",
+      title: "Blockchain developer",
       description: "Build a smart contract for my business",
       status: "active",
       tags: ["smart", "contract"],

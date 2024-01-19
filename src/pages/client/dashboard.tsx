@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import getUser from "@/lib/hooks/getUser";
 import { ClientNavbar } from "@/components/client/client-navbar";
 import CreateNewJobForm from "@/components/client/create-new-job";
+import { JobCard } from "@/components/client/job-card";
 
 const ClientDashboard = () => {
   const router = useRouter();
@@ -37,8 +38,9 @@ const ClientDashboard = () => {
       <div className="px-8 py-4">
         <ClientNavbar />
       </div>
-      <div className="px-8 py-4">
+      <div className=" flex flex-col px-8 py-4">
         <CreateNewJobForm />
+        <JobCard />
       </div>
     </>
   );
