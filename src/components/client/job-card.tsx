@@ -36,7 +36,10 @@ export function JobCard({ className, ...props }: CardProps) {
       {jobs.map((job) => (
         <Card
           key={job.jobId}
-          className={cn("shadow-lg dark:bg-dialogColor ", className)}
+          className={cn(
+            "bg-opacity-65 shadow-lg dark:bg-purple-300 dark:bg-opacity-15 cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-105 ",
+            className
+          )}
           {...props}
         >
           <CardHeader>
@@ -61,7 +64,7 @@ export function JobCard({ className, ...props }: CardProps) {
                 </Badge>
               ))}
             </div>
-            <div className="flex justify-between shadow-lg dark:shadow-xl font-semibold p-2 rounded-lg border border-green-100 dark:border-purple-700/35">
+            <div className="flex justify-between shadow-lg bg-green-50 dark:bg-dialogColor font-semibold p-2 rounded-lg ">
               <p>Offer: {job.budget}</p>
               <p>Current Proposals: {job.proposals}</p>
             </div>
