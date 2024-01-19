@@ -21,6 +21,8 @@ export type Proposal = {
   proposalId: string;
   jobId: string;
   status: "pending" | "accepted" | "rejected";
+  bid: number;
+  description: string;
   createdAt: string;
   createdBy: string;
 };
