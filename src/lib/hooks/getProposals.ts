@@ -8,7 +8,7 @@ export async function getAllActiveProposals(
       proposalId: "1",
       jobId: jobId,
       status: "pending",
-``      bid: 500,
+      bid: 500,
       description: "I will build a website for you",
       createdAt: "2021-09-01T00:00:00.000Z",
       createdBy: "0x123",
