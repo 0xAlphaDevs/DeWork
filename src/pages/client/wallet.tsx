@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { MapPin, Star } from "lucide-react";
+import { StarFilledIcon } from "@radix-ui/react-icons";
 
 const Wallet = () => {
   const router = useRouter();
@@ -40,25 +41,28 @@ const Wallet = () => {
       <div className="px-8 py-4">
         <ClientNavbar />
       </div>
-      <div className="flex flex-col gap-20 p-12">
-        <Card className=" bg-opacity-65 shadow-lg dark:bg-purple-300 dark:bg-opacity-15">
-          <CardHeader className="flex justify-center items-center">
-            <CardTitle className="flex justify-center font-semibold text-6xl">
-              Hello , X
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="flex justify-around gap-8 items-left">
-            <div className="flex gap-2 items-center">
-              <MapPin />
-              <p className="font-thin text-lg">Location</p>
-            </div>
+      <div className="flex flex-col gap-10 p-12">
+        <div className="flex justify-center items-center">
+          <div className="flex justify-center font-semibold text-6xl">
+            Hello , X
+          </div>
+        </div>
+        <div className="flex justify-center gap-8 items-left">
+          <div className="flex gap-2 items-center">
+            <MapPin />
+            <p className="font-thin text-lg">Delhi, India</p>
+          </div>
 
-            <div className="flex gap-2 items-center">
-              <p className="font-thin text-lg">Rating</p>
-              <Star />
-            </div>
-          </CardContent>
-        </Card>
+          <div className="flex gap-2 items-center">
+            <p className="font-thin text-lg">Rating : </p>
+            <StarFilledIcon className="text-yellow-500 h-8 w-8" />
+            <StarFilledIcon className="text-yellow-500 h-8 w-8" />
+            <StarFilledIcon className="text-yellow-500 h-8 w-8" />
+            <StarFilledIcon className="text-yellow-500 h-8 w-8" />
+            <StarFilledIcon className="text-gray-300 h-8 w-8" />
+          </div>
+        </div>
+
         <div className="grid grid-cols-3 gap-20">
           <Card className=" bg-opacity-65 shadow-lg dark:bg-purple-300 dark:bg-opacity-15">
             <CardHeader className="flex justify-center items-center">
