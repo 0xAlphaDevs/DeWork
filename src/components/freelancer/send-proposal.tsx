@@ -31,11 +31,7 @@ const SendProposal = () => {
     setIsLoading(false);
   }
 
-  const constructJobData = (
-    description: string,
-
-    budget: string
-  ) => {
+  const constructJobData = (description: string, budget: string) => {
     const currentDate = new Date().toLocaleDateString();
     const currentTime = new Date().toLocaleTimeString();
 
@@ -78,7 +74,7 @@ const SendProposal = () => {
         <DialogTrigger asChild>
           <Button
             onClick={handleClick}
-            className="bg-green-950 hover:bg-green-800   dark:bg-purple-50"
+            className="bg-green-950 hover:bg-green-800 dark:bg-purple-50"
           >
             <PlusCircledIcon className="mt-0.5" />
             <span className="w-2"> </span>Apply
