@@ -22,6 +22,8 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { RecievedProposalsTable } from "./received-proposals-table";
 
 export function JobCard({ job }: { job: Job }) {
+  // fetch all proposals for this job
+
   return (
     <div className="p-8 grid gap-8 ">
       <Card
@@ -81,7 +83,8 @@ export function JobCard({ job }: { job: Job }) {
                 <Button>View Proposals</Button>
               </DialogTrigger>
               <DialogContent className=" max-w-[90%]">
-                <RecievedProposalsTable />
+                {/* TO DO Send Proposals data here */}
+                <RecievedProposalsTable jobTitle={job.title} />
               </DialogContent>
             </Dialog>
             <Button>Close Job</Button>

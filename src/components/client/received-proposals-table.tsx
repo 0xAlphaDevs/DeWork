@@ -38,28 +38,21 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Proposal } from "@/lib/types";
 
-const data: Payment[] = [
+const data: Proposal[] = [
   {
     proposalId: "sawe",
     jobId: "m5gr84i9",
-    budget: 316,
-    status: "success",
-    title: "ABC",
-    sentDate: new Date("2024-01-19"),
+    bid: 316,
+    status: "pending",
+    description: "I will create a website for you. I am web developer.",
+    createdAt: "19-01-2024",
+    createdBy: "0x1230840284028402840284028402840284028402",
   },
 ];
 
-export type Payment = {
-  proposalId: string;
-  jobId: string;
-  budget: number;
-  status: "pending" | "processing" | "success" | "failed";
-  title: string;
-  sentDate: Date;
-};
-
-export const columns: ColumnDef<Payment>[] = [
+const columns: ColumnDef<Proposal>[] = [
   {
     accessorKey: "proposalId",
     header: "Proposal ID",
@@ -68,33 +61,31 @@ export const columns: ColumnDef<Payment>[] = [
     ),
   },
   {
-    accessorKey: "sentDate",
-    header: () => <div className="">Sent Date</div>,
-    cell: ({ row }) => {
-      const startDate = new Date(row.getValue("sentDate"));
-      const formattedDate = startDate.toLocaleDateString();
-
-      return (
-        <div className=" font-semibold px-2 bg-green-50 hover:text-white hover:bg-green-900 dark:bg-purple-200 dark:text-purple-900 dark:hover:text-purple-300 dark:hover:bg-purple-900 inline-block rounded-full ">
-          {formattedDate}
-        </div>
-      );
-    },
+    accessorKey: "description",
+    header: "Description",
+    cell: ({ row }) => <div className="">{row.getValue("description")}</div>,
   },
-
-  // {
-  //   accessorKey: "status",
-  //   header: "Status",
-  //   cell: ({ row }) => (
-  //     <div className="lowercase">{row.getValue("status")}</div>
-  //   ),
-  // },
-
   {
-    accessorKey: "budget",
-    header: () => <div className="">Budget</div>,
+    accessorKey: "createdAt",
+    header: "Sent Date",
+    cell: ({ row }) => (
+      <div className=" font-semibold px-2 bg-green-50 hover:text-white hover:bg-green-900 dark:bg-purple-200 dark:text-purple-900 dark:hover:text-purple-300 dark:hover:bg-purple-900 inline-block rounded-full ">
+        {row.getValue("createdAt")}
+      </div>
+    ),
+  },
+  {
+    accessorKey: "status",
+    header: "Status",
+    cell: ({ row }) => (
+      <div className="lowercase">{row.getValue("status")}</div>
+    ),
+  },
+  {
+    accessorKey: "bid",
+    header: () => <div className="">Bid Amount</div>,
     cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("budget"));
+      const amount = parseFloat(row.getValue("bid"));
       const formatted = new Intl.NumberFormat("en-US", {
         style: "currency",
         currency: "USD",
@@ -107,8 +98,7 @@ export const columns: ColumnDef<Payment>[] = [
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
-      const payment = row.original;
-
+      const proposal = row.original;
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -119,7 +109,7 @@ export const columns: ColumnDef<Payment>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.jobId)}
+              onClick={() => navigator.clipboard.writeText(proposal.proposalId)}
             >
               Copy Proposal ID
             </DropdownMenuItem>
@@ -134,7 +124,7 @@ export const columns: ColumnDef<Payment>[] = [
   },
 ];
 
-export function RecievedProposalsTable() {
+export function RecievedProposalsTable({ jobTitle }: { jobTitle: string }) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -164,19 +154,8 @@ export function RecievedProposalsTable() {
 
   return (
     <div className="w-full p-12 ">
-      <div className="flex justify-around pb-4">
-        <p className=" font-semibold text-3xl">
-          Job Id:{" "}
-          <span className="bg-green-900 px-2 rounded-lg dark:bg-purple-400">
-            1
-          </span>
-        </p>
-        <p className=" font-semibold text-3xl">
-          Job Title:{" "}
-          <span className="bg-green-900 px-2 rounded-lg dark:bg-purple-400">
-            1
-          </span>
-        </p>
+      <div className="flex justify-center pb-4">
+        <p className=" font-semibold text-3xl">{jobTitle}</p>
       </div>
 
       <div className="flex items-center py-4">
