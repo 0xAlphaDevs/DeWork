@@ -1,6 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 import { ClientNavbar } from "@/components/client/client-navbar";
+import { RecievedProposalsTable } from "@/components/client/received-proposals-table";
 
 const JobId = () => {
   const router = useRouter();
@@ -9,13 +10,13 @@ const JobId = () => {
 
   switch (jobId) {
     case "1":
-      displayName = "Build a website";
+      displayName = "Job 1";
       break;
     case "2":
-      displayName = "Build a mobile app";
+      displayName = "Job 2";
       break;
     case "3":
-      displayName = "Build a smart contract";
+      displayName = "Job 3";
       break;
 
     default:
@@ -25,7 +26,16 @@ const JobId = () => {
   return (
     <div className="px-8 py-4">
       <ClientNavbar />
-      {displayName}
+      <div className="py-12">
+        <p className="px-12 font-semibold text-3xl">
+          Job Id:{" "}
+          <span className="bg-green-900 px-2 rounded-lg dark:bg-purple-400">
+            {" "}
+            {displayName}
+          </span>
+        </p>
+        <RecievedProposalsTable />
+      </div>
     </div>
   );
 };
