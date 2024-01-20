@@ -2,17 +2,19 @@ import React, { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 import { useRouter } from "next/router";
 import getUser from "@/lib/hooks/getUser";
-import { Navbar } from "@/components/app/navbar";
 import { FreelancerNavbar } from "@/components/freelancer/freelancer-navbar";
 import { JobCard } from "@/components/freelancer/job-card";
 import { Job } from "@/lib/types";
 import { deworkContract } from "@/lib/contracts";
 import { useContractRead } from "wagmi";
+import { Input } from "@/components/ui/input";
 
 const Dashboard = () => {
   const router = useRouter();
   const { address } = useAccount();
   const [jobs, setJobs] = useState<Job[]>([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredJobs, setFilteredJobs] = useState<Job[]>([]);
 
   const { data } = useContractRead({
     abi: deworkContract.abi,
@@ -26,7 +28,17 @@ const Dashboard = () => {
     }
   }, [data]);
 
-  const [filteredJobs, setFilteredJobs] = useState<Job[]>([]); // TO DO
+  const handleSearchInputChange = (event: any) => {
+    const newSearchTerm = event.target.value;
+    setSearchTerm(newSearchTerm);
+
+    // Filter credentials based on the search term
+    const filtered = jobs.filter((job) =>
+      job.title.toLowerCase().includes(newSearchTerm.toLowerCase())
+    );
+
+    setFilteredJobs(filtered);
+  };
 
   async function checkUser(address: string) {
     const res = await getUser(address);
@@ -58,16 +70,22 @@ const Dashboard = () => {
         <FreelancerNavbar />
       </div>
       <div className="flex flex-col px-8 py-4">
-        <div className="text-4xl px-8 py-8 font-semibold ">All Active Jobs</div>
-        {jobs.length > 0 ? (
-          jobs.map((job: Job) => (
-            <>
-              <JobCard key={job.jobId} job={job} />
-            </>
-          ))
+        <div className="flex items-center justify-between">
+          <div className="text-4xl px-8 py-8 font-semibold ">
+            All Active Jobs
+          </div>
+          <Input
+            placeholder="Search jobs..."
+            value={searchTerm}
+            onChange={handleSearchInputChange}
+            className="max-w-sm w-96 font-semibold border-green-900 dark:bg-purple-100 dark:text-purple-900"
+          />
+        </div>
+        {filteredJobs.length > 0 && jobs.length > 0 ? (
+          jobs.map((job: Job) => <JobCard key={job.jobId} job={job} />)
         ) : (
           <div className="text-2xl px-8 py-8 font-semibold text-center">
-            No Active Jobs
+            {filteredJobs.length > 0 ? "No Matching Jobs" : "No Active Jobs"}
           </div>
         )}
       </div>
