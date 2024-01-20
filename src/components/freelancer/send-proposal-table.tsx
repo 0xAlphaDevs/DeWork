@@ -49,7 +49,7 @@ const data: Payment[] = [
     createdBy: "abc",
   },
   {
-    id: 1,
+    id: 2,
     jobId: "m5gr84i9",
     budget: 316,
     status: "success",
@@ -57,7 +57,7 @@ const data: Payment[] = [
     createdBy: "abc",
   },
   {
-    id: 1,
+    id: 3,
     jobId: "m5gr84i9",
     budget: 316,
     status: "pending",
