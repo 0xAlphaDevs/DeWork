@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { ConnectKitButton } from "connectkit";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
@@ -20,11 +20,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { UserMetadata } from "@/components/app/user-metadata";
 
 export default function Home() {
   const router = useRouter();
   const { setTheme } = useTheme();
   const { address } = useAccount();
+  const [isUserRegistered, setIsUserRegistered] = useState(true);
 
   async function checkUser(address: string) {
     const res = await getUser(address);
@@ -40,7 +42,7 @@ export default function Home() {
           break;
         default:
           console.log("user not found. Please sign up");
-
+          setIsUserRegistered(false);
           break;
       }
     }
@@ -90,7 +92,7 @@ export default function Home() {
           A Decentralized freelancing platform connecting businesses and
           professionals
         </p>
-        <ConnectKitButton />
+        {isUserRegistered ? <ConnectKitButton /> : <UserMetadata />}
       </div>
       {/* Features card div */}
       <div className="grid grid-cols-3 gap-8 px-20 pb-8 ">
