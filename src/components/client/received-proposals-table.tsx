@@ -41,47 +41,37 @@ import {
 
 const data: Payment[] = [
   {
+    proposalId: "sawe",
     jobId: "m5gr84i9",
     budget: 316,
     status: "success",
     title: "ABC",
-    startDate: new Date("2024-01-19"),
+    sentDate: new Date("2024-01-19"),
   },
 ];
 
 export type Payment = {
+  proposalId: string;
   jobId: string;
   budget: number;
   status: "pending" | "processing" | "success" | "failed";
   title: string;
-  startDate: Date;
+  sentDate: Date;
 };
 
 export const columns: ColumnDef<Payment>[] = [
   {
-    accessorKey: "jobId",
-    header: "Job Id",
+    accessorKey: "proposalId",
+    header: "Proposal ID",
     cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("jobId")}</div>
+      <div className="lowercase">{row.getValue("proposalId")}</div>
     ),
   },
   {
-    accessorKey: "title",
-    header: "Job Title",
-    cell: ({ row }) => <div className="lowercase">{row.getValue("title")}</div>,
-  },
-  {
-    accessorKey: "status",
-    header: "Status",
-    cell: ({ row }) => (
-      <div className="lowercase">{row.getValue("status")}</div>
-    ),
-  },
-  {
-    accessorKey: "startDate",
-    header: () => <div className="">Start Date</div>,
+    accessorKey: "sentDate",
+    header: () => <div className="">Sent Date</div>,
     cell: ({ row }) => {
-      const startDate = new Date(row.getValue("startDate"));
+      const startDate = new Date(row.getValue("sentDate"));
       const formattedDate = startDate.toLocaleDateString();
 
       return (
@@ -91,6 +81,14 @@ export const columns: ColumnDef<Payment>[] = [
       );
     },
   },
+
+  // {
+  //   accessorKey: "status",
+  //   header: "Status",
+  //   cell: ({ row }) => (
+  //     <div className="lowercase">{row.getValue("status")}</div>
+  //   ),
+  // },
 
   {
     accessorKey: "budget",
@@ -123,11 +121,12 @@ export const columns: ColumnDef<Payment>[] = [
             <DropdownMenuItem
               onClick={() => navigator.clipboard.writeText(payment.jobId)}
             >
-              Copy Job ID
+              Copy Proposal ID
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>View Freelancer Details</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
+            <DropdownMenuItem>Accept Proposal</DropdownMenuItem>
+            <DropdownMenuItem>Reject Proposal</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );
@@ -165,12 +164,29 @@ export function RecievedProposalsTable() {
 
   return (
     <div className="w-full p-12 ">
+      <div className="flex justify-around pb-4">
+        <p className=" font-semibold text-3xl">
+          Job Id:{" "}
+          <span className="bg-green-900 px-2 rounded-lg dark:bg-purple-400">
+            1
+          </span>
+        </p>
+        <p className=" font-semibold text-3xl">
+          Job Title:{" "}
+          <span className="bg-green-900 px-2 rounded-lg dark:bg-purple-400">
+            1
+          </span>
+        </p>
+      </div>
+
       <div className="flex items-center py-4">
         <Input
-          placeholder="Search a job..."
-          value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
+          placeholder="Search a proposal..."
+          value={
+            (table.getColumn("proposalId")?.getFilterValue() as string) ?? ""
+          }
           onChange={(event) =>
-            table.getColumn("title")?.setFilterValue(event.target.value)
+            table.getColumn("proposalId")?.setFilterValue(event.target.value)
           }
           className="max-w-sm w-96 font-semibold border-green-900 dark:bg-purple-100 dark:text-purple-900"
         />

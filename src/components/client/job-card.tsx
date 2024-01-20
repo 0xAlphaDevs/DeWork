@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/router";
 import {
   Card,
   CardContent,
@@ -19,14 +18,10 @@ import {
   Briefcase,
   Calendar,
 } from "lucide-react";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { RecievedProposalsTable } from "./received-proposals-table";
 
 export function JobCard({ job }: { job: Job }) {
-  const router = useRouter();
-
-  const handleViewProposal = (jobId: string) => {
-    router.push(`/client/received-proposals/${jobId}`);
-  };
-
   return (
     <div className="p-8 grid gap-8 ">
       <Card
@@ -81,9 +76,14 @@ export function JobCard({ job }: { job: Job }) {
           </div>
 
           <div className="flex gap-4">
-            <Button onClick={() => handleViewProposal(job.jobId)}>
-              View Proposal
-            </Button>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button>View Proposals</Button>
+              </DialogTrigger>
+              <DialogContent className=" max-w-[90%]">
+                <RecievedProposalsTable />
+              </DialogContent>
+            </Dialog>
             <Button>Close Job</Button>
           </div>
         </CardFooter>
