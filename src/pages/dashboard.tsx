@@ -20,22 +20,31 @@ const Dashboard = () => {
     abi: deworkContract.abi,
     address: "0xeDe54e20dD081FE70cAE3fa46689E12d175117be",
     functionName: "getAllActiveJobs",
+    args: [],
   });
 
   useEffect(() => {
     if (data) {
+      console.log(data);
       setJobs(data as Job[]);
+      setFilteredJobs(data as Job[]);
     }
   }, [data]);
 
+  // TO DO
   const handleSearchInputChange = (event: any) => {
     const newSearchTerm = event.target.value;
     setSearchTerm(newSearchTerm);
 
+    if (newSearchTerm === "") {
+      setFilteredJobs(jobs);
+      return;
+    }
+
     // Filter credentials based on the search term
-    const filtered = jobs.filter((job) =>
-      job.title.toLowerCase().includes(newSearchTerm.toLowerCase())
-    );
+    const filtered = jobs.filter((job) => {
+      return job.title.toLowerCase().includes(newSearchTerm.toLowerCase());
+    });
 
     setFilteredJobs(filtered);
   };
@@ -81,11 +90,11 @@ const Dashboard = () => {
             className="max-w-sm w-96 font-semibold border-green-900 dark:bg-purple-100 dark:text-purple-900"
           />
         </div>
-        {filteredJobs.length > 0 && jobs.length > 0 ? (
-          jobs.map((job: Job) => <JobCard key={job.jobId} job={job} />)
+        {filteredJobs.length > 0 ? (
+          filteredJobs.map((job: Job) => <JobCard key={job.jobId} job={job} />)
         ) : (
           <div className="text-2xl px-8 py-8 font-semibold text-center">
-            {filteredJobs.length > 0 ? "No Matching Jobs" : "No Active Jobs"}
+            {jobs.length > 0 ? "No Matching Jobs" : "No Active Jobs"}
           </div>
         )}
       </div>

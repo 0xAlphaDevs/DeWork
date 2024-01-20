@@ -27,9 +27,9 @@ interface FormData {
   userLocation: string;
 }
 
-export function UserMetadata() {
+export function UserMetadata({ setRecheckUser }: { setRecheckUser: any }) {
   const [isLoading, setIsLoading] = useState(false);
-  const [sendMetaData, setSendMetaData] = useState(false);
+  const [userRegistered, setUserRegistered] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     userName: "",
     userType: "",
@@ -43,34 +43,21 @@ export function UserMetadata() {
       userType: "",
       userLocation: "",
     });
-    setSendMetaData(false);
+    setUserRegistered(false);
     setIsLoading(false);
   }
 
-  const constructMetaData = (
-    userName: string,
-    userType: string,
-    userLocation: string
-  ) => {
-    const newMetaData = {
-      userName: userName,
-      userType: userType,
-      userLocation: userLocation,
-    };
-    return newMetaData;
-  };
-
-  async function sendMetaDataForm() {
+  async function registerUser() {
     try {
       setIsLoading(true);
-      const newMetaData = constructMetaData(
-        formData.userName,
-        formData.userType,
-        formData.userLocation
-      );
-      console.log(" Data: ", newMetaData);
-      setIsLoading(false);
-      setSendMetaData(true);
+      console.log(" Data: ", formData);
+      // TO DO: call register function from smart contract
+
+      setTimeout(() => {
+        setIsLoading(false);
+        setUserRegistered(true);
+        setRecheckUser((prev: boolean) => !prev);
+      }, 2000);
     } catch (error) {
       console.error("Error submitting metaData:", error);
       setIsLoading(false);
@@ -91,7 +78,7 @@ export function UserMetadata() {
     e.preventDefault();
     console.log("Registering...");
     console.log("Form Data: ", formData);
-    await sendMetaDataForm();
+    await registerUser();
   };
 
   return (
@@ -105,11 +92,11 @@ export function UserMetadata() {
         {isLoading ? (
           <div className="flex flex-col items-center justify-center h-40 gap-4">
             {/* <Loader /> */}
-            <p>Creating record...</p>
+            <p>Registering user...</p>
           </div>
         ) : (
           <>
-            {!sendMetaData ? (
+            {!userRegistered ? (
               <>
                 <DialogHeader>
                   <DialogTitle>Enter Details</DialogTitle>
@@ -136,14 +123,12 @@ export function UserMetadata() {
                         Username
                       </Label>
                       <Select
-                        placeholder="Select a category"
                         onValueChange={(value: string) =>
                           setFormData({
                             ...formData,
                             userType: value,
                           })
                         }
-                        className="border "
                         required
                         name="userType"
                       >
@@ -179,7 +164,7 @@ export function UserMetadata() {
             ) : (
               <div className="flex flex-col gap-4 items-center">
                 <CheckCircledIcon className="w-20 h-20 text-green-500" />
-                <p>Registartion Successfully</p>
+                <p>Registered Successfully</p>
               </div>
             )}
           </>

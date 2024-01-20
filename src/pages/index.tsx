@@ -27,8 +27,11 @@ export default function Home() {
   const { setTheme } = useTheme();
   const { address } = useAccount();
   const [isUserRegistered, setIsUserRegistered] = useState(true);
+  const [recheckUser, setRecheckUser] = useState<boolean>(false);
 
   async function checkUser(address: string) {
+    console.log("checking user");
+
     const res = await getUser(address);
     if (res) {
       switch (res.userType) {
@@ -54,7 +57,7 @@ export default function Home() {
       checkUser(address);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [address]);
+  }, [address, recheckUser]);
 
   return (
     <div>
@@ -62,6 +65,7 @@ export default function Home() {
         <div className="text-2xl font-bold dark:text-purple-50">DeWork</div>
         <div className="flex gap-5">
           {/* theme icon */}
+          <ConnectKitButton />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" size="icon">
@@ -92,7 +96,17 @@ export default function Home() {
           A Decentralized freelancing platform connecting businesses and
           professionals
         </p>
-        {isUserRegistered ? <ConnectKitButton /> : <UserMetadata />}
+        {isUserRegistered ? (
+          <ConnectKitButton />
+        ) : (
+          <>
+            <p>
+              You are not registered as a client or Freelancer. Please click
+              button below to continue to app.
+            </p>
+            <UserMetadata setRecheckUser={setRecheckUser} />
+          </>
+        )}
       </div>
       {/* Features card div */}
       <div className="grid grid-cols-3 gap-8 px-20 pb-8 ">
