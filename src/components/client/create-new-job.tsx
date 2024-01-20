@@ -8,19 +8,43 @@ import {
   DialogTrigger,
   DialogFooter,
 } from "@/components/ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { PlusCircledIcon, CheckCircledIcon } from "@radix-ui/react-icons";
+import { useContractWrite } from "wagmi";
+import { deworkContract } from "@/lib/contracts";
+
+interface CreateJobForm {
+  title: string;
+  description: string;
+  tags: string;
+  budget: string;
+}
 
 const CreateNewJobForm = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const [sendRequestSuccess, setSendRequestSuccess] = useState(false);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<CreateJobForm>({
     title: "",
     description: "",
-    tags: [],
+    tags: "",
     budget: "",
+  });
+
+  const { data, isSuccess, isLoading, write } = useContractWrite({
+    address: "0xeDe54e20dD081FE70cAE3fa46689E12d175117be",
+    abi: deworkContract.abi,
+    functionName: "createJob",
+    args: [],
   });
 
   function handleClick() {
@@ -28,17 +52,17 @@ const CreateNewJobForm = () => {
     setFormData({
       title: "",
       description: "",
-      tags: [],
+      tags: "",
       budget: "",
     });
     setSendRequestSuccess(false);
-    setIsLoading(false);
+    // setIsLoading(false);
   }
 
   const constructJobData = (
     title: string,
     description: string,
-    tags: string[],
+    tags: string,
     budget: string
   ) => {
     const currentDate = new Date().toLocaleDateString();
@@ -47,16 +71,16 @@ const CreateNewJobForm = () => {
     const newJobData = {
       title: title,
       description: description,
-      tags: tags,
-      budget: budget,
       createdAt: `${currentDate} ${currentTime}`,
+      tags: [tags],
+      budget: budget,
     };
     return newJobData;
   };
 
-  async function sendData() {
+  async function createJob() {
     try {
-      setIsLoading(true);
+      // setIsLoading(true);
       const newJobData = constructJobData(
         formData.title,
         formData.description,
@@ -65,13 +89,22 @@ const CreateNewJobForm = () => {
       );
       console.log(" Data: ", newJobData);
 
+      write({
+        args: [
+          newJobData.title,
+          newJobData.description,
+          newJobData.createdAt,
+          newJobData.tags,
+          newJobData.budget,
+        ],
+      });
       //   const result = await saveJobData(formData.title);
 
-      setIsLoading(false);
+      // setIsLoading(false);
       setSendRequestSuccess(true);
     } catch (error) {
       console.error("Error submitting record:", error);
-      setIsLoading(false);
+      // setIsLoading(false);
     }
   }
 
@@ -79,7 +112,7 @@ const CreateNewJobForm = () => {
     e.preventDefault();
     console.log("Creating request...");
     console.log("Form Data: ", formData);
-    await sendData();
+    await createJob();
   };
 
   return (
@@ -103,7 +136,7 @@ const CreateNewJobForm = () => {
             </div>
           ) : (
             <>
-              {!sendRequestSuccess ? (
+              {!isSuccess ? (
                 <>
                   <DialogHeader>
                     <DialogTitle>Create New Job.</DialogTitle>
@@ -119,7 +152,7 @@ const CreateNewJobForm = () => {
                         </Label>
                         <Input
                           id="title"
-                          placeholder="Blockchain developer"
+                          placeholder="Enter job title"
                           className="col-span-3"
                           value={formData.title}
                           onChange={(e: { target: { value: any } }) =>
@@ -137,7 +170,7 @@ const CreateNewJobForm = () => {
                         </Label>
                         <Input
                           id="description"
-                          placeholder="Blockchain developer"
+                          placeholder="Enter job description"
                           className="col-span-3"
                           value={formData.description}
                           onChange={(e: { target: { value: any } }) =>
@@ -151,21 +184,40 @@ const CreateNewJobForm = () => {
                       </div>
                       <div className="grid grid-cols-4 items-center gap-4">
                         <Label htmlFor="tags" className="text-right">
-                          Tags
+                          Add Tag
                         </Label>
-                        <Input
-                          id="Tags"
-                          placeholder="Blockchain developer"
-                          className="col-span-3"
-                          value={formData.tags}
-                          onChange={(e: { target: { value: any } }) =>
+                        <Select
+                          onValueChange={(value: string) =>
                             setFormData({
                               ...formData,
-                              tags: e.target.value,
+                              tags: value,
                             })
                           }
                           required
-                        />
+                          name="userType"
+                        >
+                          <SelectTrigger className="col-span-3">
+                            <SelectValue placeholder="Select a user type" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectGroup>
+                              <SelectItem value="Front-end">
+                                Front-end Development
+                              </SelectItem>
+                              <SelectItem value="Back-end">
+                                Back-end Development
+                              </SelectItem>
+                              <SelectItem value="Mobile App">
+                                Mobile App Development
+                              </SelectItem>
+                              <SelectItem value="Game Development">
+                                Game Development
+                              </SelectItem>
+                              <SelectItem value="AI / ML">AI / ML</SelectItem>
+                              <SelectItem value="Other">Other</SelectItem>
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
                       </div>
                       <div className="grid grid-cols-4 items-center gap-4">
                         <Label htmlFor="budget" className="text-right">
@@ -173,7 +225,8 @@ const CreateNewJobForm = () => {
                         </Label>
                         <Input
                           id="Tags"
-                          placeholder="Blockchain developer"
+                          type="number"
+                          placeholder="Enter GHO amount"
                           className="col-span-3"
                           value={formData.budget}
                           onChange={(e: { target: { value: any } }) =>
