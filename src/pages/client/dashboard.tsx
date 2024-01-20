@@ -17,7 +17,8 @@ const ClientDashboard = () => {
   const { data } = useContractRead({
     abi: deworkContract.abi,
     address: "0xeDe54e20dD081FE70cAE3fa46689E12d175117be",
-    functionName: "getAllByCreater",
+    functionName: "getAllJobsByCreator",
+    args: [address],
   });
 
   useEffect(() => {

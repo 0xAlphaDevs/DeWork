@@ -39,7 +39,7 @@ export function JobCard({ job }: { job: Job }) {
           <CardTitle className="flex justify-between items-center">
             {job.title}
             <p className="px-2 py-1 text-white text-sm font-bold rounded-md bg-green-800 dark:text-black dark:bg-white">
-              Job ID : {job.jobId}
+              Job ID : {job.jobId.toString()}
             </p>
           </CardTitle>
           <CardDescription>
@@ -64,7 +64,7 @@ export function JobCard({ job }: { job: Job }) {
           <div className="flex gap-2 items-center">
             <BadgeDollarSignIcon className="h-5" />
             <p className="text-lg font-thin">
-              Budget : ${job.budget.toString()}
+              Budget : $ {job.budget.toString()}
             </p>
           </div>
           <div className="flex gap-2 items-center">

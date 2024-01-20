@@ -31,7 +31,6 @@ const Dashboard = () => {
     }
   }, [data]);
 
-  // TO DO
   const handleSearchInputChange = (event: any) => {
     const newSearchTerm = event.target.value;
     setSearchTerm(newSearchTerm);
