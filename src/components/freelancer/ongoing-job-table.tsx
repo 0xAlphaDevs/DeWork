@@ -156,6 +156,7 @@ export function OngoinJobtable() {
           }
           className="max-w-sm w-96 font-semibold border-green-900 dark:bg-purple-100 dark:text-purple-900"
         />
+
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button

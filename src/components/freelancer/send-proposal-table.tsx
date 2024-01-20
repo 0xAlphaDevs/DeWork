@@ -37,18 +37,37 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Filter } from "./filter";
 
 const data: Payment[] = [
   {
+    id: 1,
     jobId: "m5gr84i9",
     budget: 316,
     status: "success",
     title: "Abc",
     createdBy: "abc",
   },
+  {
+    id: 1,
+    jobId: "m5gr84i9",
+    budget: 316,
+    status: "success",
+    title: "Abc",
+    createdBy: "abc",
+  },
+  {
+    id: 1,
+    jobId: "m5gr84i9",
+    budget: 316,
+    status: "pending",
+    title: "Abc",
+    createdBy: "abc",
+  },
 ];
 
 export type Payment = {
+  id: number;
   jobId: string;
   budget: number;
   status: "pending" | "processing" | "success" | "failed";
@@ -82,6 +101,17 @@ export const columns: ColumnDef<Payment>[] = [
     cell: ({ row }) => (
       <div className="lowercase">{row.getValue("status")}</div>
     ),
+    filterFn: (row, id, value) => {
+      // Here, explicitly specify the type of the 'value' parameter
+      const typedValue = value as
+        | "pending"
+        | "processing"
+        | "success"
+        | "failed";
+      return typedValue.includes(
+        row.getValue(id) as "pending" | "processing" | "success" | "failed"
+      );
+    },
   },
   {
     accessorKey: "budget",
@@ -133,6 +163,12 @@ export function SendProposalTable() {
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
 
+  const statusOptions = React.useMemo(() => {
+    const options = data.map((row) => row.status);
+    const statuses = [...new Set(options)];
+    return statuses.map((status) => ({ value: status, label: status }));
+  }, [data]);
+
   const table = useReactTable({
     data,
     columns,
@@ -163,6 +199,13 @@ export function SendProposalTable() {
           }
           className="max-w-sm w-96 font-semibold border-green-900 dark:bg-purple-100 dark:text-purple-900"
         />
+        {table.getColumn("status") && (
+          <Filter
+            column={table.getColumn("status")}
+            title="Status"
+            options={statusOptions}
+          />
+        )}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
