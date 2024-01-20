@@ -37,7 +37,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Filter } from "./filter";
+import { Filter } from "../app/filter";
 
 const data: Payment[] = [
   {
@@ -191,21 +191,23 @@ export function SendProposalTable() {
   return (
     <div className="w-full p-12 ">
       <div className="flex items-center py-4">
-        <Input
-          placeholder="Search a job..."
-          value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("title")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm w-96 font-semibold border-green-900 dark:bg-purple-100 dark:text-purple-900"
-        />
-        {table.getColumn("status") && (
-          <Filter
-            column={table.getColumn("status")}
-            title="Status"
-            options={statusOptions}
+        <div className="flex items-center gap-3 py-4">
+          <Input
+            placeholder="Search a job..."
+            value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
+            onChange={(event) =>
+              table.getColumn("title")?.setFilterValue(event.target.value)
+            }
+            className="max-w-sm w-96 font-semibold border-green-900 dark:bg-purple-100 dark:text-purple-900"
           />
-        )}
+          {table.getColumn("status") && (
+            <Filter
+              column={table.getColumn("status")}
+              title="Status"
+              options={statusOptions}
+            />
+          )}
+        </div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
