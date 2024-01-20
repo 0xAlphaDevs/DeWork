@@ -41,19 +41,19 @@ import {
 
 const data: Payment[] = [
   {
-    id: "m5gr84i9",
-    amount: 316,
+    jobId: "m5gr84i9",
+    budget: 316,
     status: "success",
-    email: "ken99@yahoo.com",
+    title: "ABC",
     startDate: new Date("2024-01-19"),
   },
 ];
 
 export type Payment = {
-  id: string;
-  amount: number;
+  jobId: string;
+  budget: number;
   status: "pending" | "processing" | "success" | "failed";
-  email: string;
+  title: string;
   startDate: Date;
 };
 
@@ -62,18 +62,20 @@ export const columns: ColumnDef<Payment>[] = [
     accessorKey: "jobId",
     header: "Job Id",
     cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("status")}</div>
+      <div className="capitalize">{row.getValue("jobId")}</div>
     ),
   },
   {
     accessorKey: "title",
     header: "Job Title",
-    cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
+    cell: ({ row }) => <div className="lowercase">{row.getValue("title")}</div>,
   },
   {
     accessorKey: "status",
     header: "Status",
-    cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
+    cell: ({ row }) => (
+      <div className="lowercase">{row.getValue("status")}</div>
+    ),
   },
   {
     accessorKey: "startDate",
@@ -94,7 +96,7 @@ export const columns: ColumnDef<Payment>[] = [
     accessorKey: "budget",
     header: () => <div className="">Budget</div>,
     cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"));
+      const amount = parseFloat(row.getValue("budget"));
       const formatted = new Intl.NumberFormat("en-US", {
         style: "currency",
         currency: "USD",
@@ -119,9 +121,9 @@ export const columns: ColumnDef<Payment>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.id)}
+              onClick={() => navigator.clipboard.writeText(payment.jobId)}
             >
-              Copy payment ID
+              Copy Job ID
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>View Freelancer Details</DropdownMenuItem>
@@ -166,9 +168,9 @@ export function OngoinJobtable() {
       <div className="flex items-center py-4">
         <Input
           placeholder="Search a job..."
-          value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
+          value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("email")?.setFilterValue(event.target.value)
+            table.getColumn("title")?.setFilterValue(event.target.value)
           }
           className="max-w-sm w-96 font-semibold border-green-900 dark:bg-purple-100 dark:text-purple-900"
         />

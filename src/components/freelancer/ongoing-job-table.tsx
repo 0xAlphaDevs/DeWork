@@ -40,25 +40,29 @@ import {
 
 const data: Payment[] = [
   {
-    id: "m5gr84i9",
+    jobId: "m5gr84i9",
     budget: 316,
     status: "success",
     title: "Abc",
+    createdBy: "abc",
   },
 ];
 
 export type Payment = {
-  id: string;
+  jobId: string;
   budget: number;
   status: "pending" | "processing" | "success" | "failed";
   title: string;
+  createdBy: string;
 };
 
 export const columns: ColumnDef<Payment>[] = [
   {
     accessorKey: "jobId",
     header: "Job Id",
-    cell: ({ row }) => <div className="capitalize">{row.getValue("id")}</div>,
+    cell: ({ row }) => (
+      <div className="capitalize">{row.getValue("jobId")}</div>
+    ),
   },
   {
     accessorKey: "title",
@@ -66,10 +70,10 @@ export const columns: ColumnDef<Payment>[] = [
     cell: ({ row }) => <div className="lowercase">{row.getValue("title")}</div>,
   },
   {
-    accessorKey: "status",
-    header: "Status",
+    accessorKey: "createdBy",
+    header: "Creator",
     cell: ({ row }) => (
-      <div className="lowercase">{row.getValue("status")}</div>
+      <div className="lowercase">{row.getValue("createdBy")}</div>
     ),
   },
   {
@@ -101,7 +105,7 @@ export const columns: ColumnDef<Payment>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.id)}
+              onClick={() => navigator.clipboard.writeText(payment.jobId)}
             >
               Copy payment ID
             </DropdownMenuItem>
