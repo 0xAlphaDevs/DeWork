@@ -1,5 +1,5 @@
 export const deworkContract = {
-  address: "0xeDe54e20dD081FE70cAE3fa46689E12d175117be",
+  address: "0x16e89169832FF505c77F4EB353e084bD5532E179",
   abi: [
     {
       anonymous: false,
@@ -319,6 +319,118 @@ export const deworkContract = {
             },
           ],
           internalType: "struct DeWork.Job[]",
+          name: "",
+          type: "tuple[]",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "walletAddress",
+          type: "address",
+        },
+      ],
+      name: "getAllOngoingProposalsForClient",
+      outputs: [
+        {
+          components: [
+            {
+              internalType: "uint256",
+              name: "proposalId",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "jobId",
+              type: "uint256",
+            },
+            {
+              internalType: "string",
+              name: "status",
+              type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "bid",
+              type: "uint256",
+            },
+            {
+              internalType: "string",
+              name: "description",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "createdAt",
+              type: "string",
+            },
+            {
+              internalType: "address",
+              name: "createdBy",
+              type: "address",
+            },
+          ],
+          internalType: "struct DeWork.Proposal[]",
+          name: "",
+          type: "tuple[]",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "walletAddress",
+          type: "address",
+        },
+      ],
+      name: "getAllOngoingProposalsForFreelancer",
+      outputs: [
+        {
+          components: [
+            {
+              internalType: "uint256",
+              name: "proposalId",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "jobId",
+              type: "uint256",
+            },
+            {
+              internalType: "string",
+              name: "status",
+              type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "bid",
+              type: "uint256",
+            },
+            {
+              internalType: "string",
+              name: "description",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "createdAt",
+              type: "string",
+            },
+            {
+              internalType: "address",
+              name: "createdBy",
+              type: "address",
+            },
+          ],
+          internalType: "struct DeWork.Proposal[]",
           name: "",
           type: "tuple[]",
         },
