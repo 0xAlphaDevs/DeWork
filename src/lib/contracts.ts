@@ -1,5 +1,5 @@
 export const deworkContract = {
-  address: "0xF64194D00D5e6f0F519bE73B19558f37f300C03E",
+  address: "0x1FD044132dDf03dF133bC6dB12Bd7C4093857523",
   abi: [
     {
       inputs: [
@@ -584,29 +584,41 @@ export const deworkContract = {
       name: "getUser",
       outputs: [
         {
-          internalType: "string",
+          components: [
+            {
+              internalType: "string",
+              name: "name",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "location",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "userType",
+              type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "rating",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "ghoSpent",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "walletAddress",
+              type: "address",
+            },
+          ],
+          internalType: "struct IDeWork.User",
           name: "",
-          type: "string",
-        },
-        {
-          internalType: "string",
-          name: "",
-          type: "string",
-        },
-        {
-          internalType: "string",
-          name: "",
-          type: "string",
-        },
-        {
-          internalType: "uint256",
-          name: "",
-          type: "uint256",
-        },
-        {
-          internalType: "uint256",
-          name: "",
-          type: "uint256",
+          type: "tuple",
         },
       ],
       stateMutability: "view",

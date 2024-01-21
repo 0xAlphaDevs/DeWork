@@ -29,7 +29,7 @@ export function JobCard({ job }: { job: Job }) {
   // fetch all proposals for this job
   const { data } = useContractRead({
     abi: deworkContract.abi,
-    address: "0xF64194D00D5e6f0F519bE73B19558f37f300C03E",
+    address: "0x1FD044132dDf03dF133bC6dB12Bd7C4093857523",
     functionName: "getAllActiveProposals",
     args: [job.jobId],
   });

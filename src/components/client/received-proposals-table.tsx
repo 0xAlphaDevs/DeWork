@@ -59,7 +59,7 @@ export function RecievedProposalsTable({
   const [proposals, setProposals] = React.useState<Proposal[]>([]);
 
   const { data, isSuccess, isLoading, write } = useContractWrite({
-    address: "0xF64194D00D5e6f0F519bE73B19558f37f300C03E",
+    address: "0x1FD044132dDf03dF133bC6dB12Bd7C4093857523",
     abi: deworkContract.abi,
     functionName: "acceptProposal",
     args: [],
