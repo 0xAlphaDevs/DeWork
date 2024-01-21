@@ -29,7 +29,7 @@ const Dashboard = () => {
     functionName: "getUser",
     args: [address],
     onSuccess: (data: any) => {
-      switch (data[2]) {
+      switch (data.userType) {
         case "client":
           router.push("/client/dashboard");
           break;
