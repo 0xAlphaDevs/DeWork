@@ -37,87 +37,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Proposal } from "@/lib/types";
 
-const data: Payment[] = [
-  {
-    jobId: "m5gr84i9",
-    budget: 316,
-    status: "success",
-    title: "Abc",
-    createdBy: "abc",
-  },
-];
-
-export type Payment = {
-  jobId: string;
-  budget: number;
-  status: "pending" | "processing" | "success" | "failed";
-  title: string;
-  createdBy: string;
-};
-
-export const columns: ColumnDef<Payment>[] = [
-  {
-    accessorKey: "jobId",
-    header: "Job Id",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("jobId")}</div>
-    ),
-  },
-  {
-    accessorKey: "title",
-    header: "Job Title",
-    cell: ({ row }) => <div className="lowercase">{row.getValue("title")}</div>,
-  },
-  {
-    accessorKey: "createdBy",
-    header: "Creator",
-    cell: ({ row }) => (
-      <div className="lowercase">{row.getValue("createdBy")}</div>
-    ),
-  },
-  {
-    accessorKey: "budget",
-    header: () => <div className="">Budget</div>,
-    cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("budget"));
-      const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      }).format(amount);
-
-      return <div className=" font-medium">{formatted}</div>;
-    },
-  },
-  {
-    id: "actions",
-    enableHiding: false,
-    cell: ({ row }) => {
-      const payment = row.original;
-
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <DotsHorizontalIcon className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.jobId)}
-            >
-              Copy payment ID
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
-    },
-  },
-];
-
-export function OngoinJobtable() {
+export function OngoinJobtable({
+  ongoingProposals,
+}: {
+  ongoingProposals: Proposal[];
+}) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -125,9 +51,71 @@ export function OngoinJobtable() {
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
+  const [proposals, setProposals] = React.useState<Proposal[]>([]);
 
+  React.useEffect(() => {
+    setProposals(ongoingProposals);
+  }, [ongoingProposals]);
+
+  const columns: ColumnDef<Proposal>[] = [
+    {
+      accessorKey: "jobId",
+      header: "Job Id",
+      cell: ({ row }) => (
+        <div className="capitalize">{row.getValue("jobId")}</div>
+      ),
+    },
+    {
+      accessorKey: "proposalId",
+      header: "Proposal Id",
+      cell: ({ row }) => (
+        <div className="capitalize">{row.getValue("proposalId")}</div>
+      ),
+    },
+    //TO DO: Show start date after the
+    {
+      accessorKey: "createdAt",
+      header: "Start On",
+      cell: ({ row }) => (
+        <div className=" font-semibold px-2 bg-green-50 hover:text-white hover:bg-green-900 dark:bg-purple-200 dark:text-purple-900 dark:hover:text-purple-300 dark:hover:bg-purple-900 inline-block rounded-full ">
+          {row.getValue("createdAt")}
+        </div>
+      ),
+    },
+    {
+      accessorKey: "bid",
+      header: () => <div className="">Bid</div>,
+      cell: ({ row }) => {
+        const amount = parseFloat(row.getValue("bid"));
+        const formatted = new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency: "USD",
+        }).format(amount);
+
+        return <div className=" font-medium">{formatted}</div>;
+      },
+    },
+    //TO DO
+    {
+      id: "actions",
+      enableHiding: false,
+      cell: ({ row }) => {
+        const payment = row.original;
+
+        return (
+          <Button
+            onClick={() => {
+              console.log("Submitting Job");
+            }}
+          >
+            Submit
+          </Button>
+        );
+      },
+    },
+  ];
   const table = useReactTable({
-    data,
+    data: proposals,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,

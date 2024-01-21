@@ -84,7 +84,11 @@ export function SendProposalTable({
     {
       accessorKey: "createdAt",
       header: "Sent On",
-      cell: ({ row }) => <div className="">{row.getValue("createdAt")}</div>,
+      cell: ({ row }) => (
+        <div className=" font-semibold px-2 bg-green-50 hover:text-white hover:bg-green-900 dark:bg-purple-200 dark:text-purple-900 dark:hover:text-purple-300 dark:hover:bg-purple-900 inline-block rounded-full ">
+          {row.getValue("createdAt")}
+        </div>
+      ),
     },
     {
       accessorKey: "status",
@@ -117,32 +121,32 @@ export function SendProposalTable({
         return <div className=" font-medium">{formatted}</div>;
       },
     },
-    {
-      id: "actions",
-      enableHiding: false,
-      cell: ({ row }) => {
-        const payment = row.original;
+    // {
+    //   id: "actions",
+    //   enableHiding: false,
+    //   cell: ({ row }) => {
+    //     const payment = row.original;
 
-        return (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 p-0">
-                <span className="sr-only">Open menu</span>
-                <DotsHorizontalIcon className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem
-                onClick={() => navigator.clipboard.writeText(payment.jobId)}
-              >
-                Copy Job ID
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-            </DropdownMenuContent>
-          </DropdownMenu>
-        );
-      },
-    },
+    //     return (
+    //       <DropdownMenu>
+    //         <DropdownMenuTrigger asChild>
+    //           <Button variant="ghost" className="h-8 w-8 p-0">
+    //             <span className="sr-only">Open menu</span>
+    //             <DotsHorizontalIcon className="h-4 w-4" />
+    //           </Button>
+    //         </DropdownMenuTrigger>
+    //         <DropdownMenuContent align="end">
+    //           <DropdownMenuItem
+    //             onClick={() => navigator.clipboard.writeText(payment.jobId)}
+    //           >
+    //             Copy Job ID
+    //           </DropdownMenuItem>
+    //           <DropdownMenuSeparator />
+    //         </DropdownMenuContent>
+    //       </DropdownMenu>
+    //     );
+    //   },
+    // },
   ];
 
   const table = useReactTable({
