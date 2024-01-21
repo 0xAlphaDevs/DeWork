@@ -39,7 +39,7 @@ Follow these instructions to set up and run the project:
 - wagmi
 - @wagmi/core
 
-## Deployed Contracts
+## Deployed Contracts on Polygon Mumabi
 
 - DeWork Contract : 0x1FD044132dDf03dF133bC6dB12Bd7C4093857523
 - GHO : 0xC6e0ED62C7e6042fDc64354273F3d51f7FAE458e
