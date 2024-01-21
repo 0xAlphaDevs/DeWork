@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 import { useRouter } from "next/router";
 import getUser from "@/lib/hooks/getUser";
@@ -11,19 +11,17 @@ import { useBalance } from "wagmi";
 const Wallet = () => {
   const router = useRouter();
   const { address } = useAccount();
+  const [maticBalance, setMaticBalance] = useState<number>(0);
 
-  const maticBalance = useBalance({
+  const balance = useBalance({
     address: address,
     chainId: 80001,
   });
 
-  const ethBalance = useBalance({
-    address: address,
-    chainId: 11155111,
-  });
-
-  console.log("MATIC Balance :", maticBalance.data);
-  console.log("ETH Balance :", ethBalance.data);
+  // const ethBalance = useBalance({
+  //   address: address,
+  //   chainId: 11155111,
+  // });
 
   async function checkUser(address: string) {
     const res = await getUser(address);
@@ -45,6 +43,7 @@ const Wallet = () => {
       router.push("/");
     } else {
       checkUser(address);
+      setMaticBalance((balance as any).data.formatted);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address]);
@@ -83,7 +82,7 @@ const Wallet = () => {
             </CardHeader>
             <CardContent className="flex flex-col gap-8 items-left">
               <div>GHO Balance : {"100 GHO"} </div>
-              <div>ETH Balance : {"0 ETH"}</div>
+              <div>MATIC Balance : {Number(maticBalance).toFixed(2)}</div>
             </CardContent>
           </Card>
           <Card className=" bg-opacity-65 shadow-lg dark:bg-purple-300 dark:bg-opacity-15">
@@ -93,7 +92,6 @@ const Wallet = () => {
             </CardHeader>
             <CardContent className="flex flex-col gap-8 items-left">
               <div>GHO Balance : {"0 GHO"}</div>
-              <div>MATIC Balance : {"0 ETH"}</div>
             </CardContent>
           </Card>
         </div>
