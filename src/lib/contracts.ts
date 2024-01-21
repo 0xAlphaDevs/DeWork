@@ -2,6 +2,36 @@ export const deworkContract = {
   address: "0xF64194D00D5e6f0F519bE73B19558f37f300C03E",
   abi: [
     {
+      inputs: [
+        {
+          internalType: "address",
+          name: "_gho",
+          type: "address",
+        },
+      ],
+      stateMutability: "nonpayable",
+      type: "constructor",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "jobId",
+          type: "uint256",
+        },
+        {
+          indexed: false,
+          internalType: "address",
+          name: "createdBy",
+          type: "address",
+        },
+      ],
+      name: "JobCompletedByFreelancer",
+      type: "event",
+    },
+    {
       anonymous: false,
       inputs: [
         {
@@ -69,6 +99,55 @@ export const deworkContract = {
       ],
       name: "ProposalCreated",
       type: "event",
+    },
+    {
+      inputs: [
+        {
+          internalType: "uint256",
+          name: "proposalId",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "jobId",
+          type: "uint256",
+        },
+      ],
+      name: "acceptProposal",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "uint256",
+          name: "jobId",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "proposalId",
+          type: "uint256",
+        },
+      ],
+      name: "approveJobCompletion",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "uint256",
+          name: "jobId",
+          type: "uint256",
+        },
+      ],
+      name: "closeJob",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
     },
     {
       inputs: [
@@ -201,7 +280,7 @@ export const deworkContract = {
               type: "address",
             },
           ],
-          internalType: "struct DeWork.Job[]",
+          internalType: "struct IDeWork.Job[]",
           name: "",
           type: "tuple[]",
         },
@@ -257,7 +336,7 @@ export const deworkContract = {
               type: "address",
             },
           ],
-          internalType: "struct DeWork.Proposal[]",
+          internalType: "struct IDeWork.Proposal[]",
           name: "",
           type: "tuple[]",
         },
@@ -318,7 +397,7 @@ export const deworkContract = {
               type: "address",
             },
           ],
-          internalType: "struct DeWork.Job[]",
+          internalType: "struct IDeWork.Job[]",
           name: "",
           type: "tuple[]",
         },
@@ -374,7 +453,7 @@ export const deworkContract = {
               type: "address",
             },
           ],
-          internalType: "struct DeWork.Proposal[]",
+          internalType: "struct IDeWork.Proposal[]",
           name: "",
           type: "tuple[]",
         },
@@ -430,7 +509,7 @@ export const deworkContract = {
               type: "address",
             },
           ],
-          internalType: "struct DeWork.Proposal[]",
+          internalType: "struct IDeWork.Proposal[]",
           name: "",
           type: "tuple[]",
         },
@@ -486,117 +565,9 @@ export const deworkContract = {
               type: "address",
             },
           ],
-          internalType: "struct DeWork.Proposal[]",
+          internalType: "struct IDeWork.Proposal[]",
           name: "",
           type: "tuple[]",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [
-        {
-          internalType: "uint256",
-          name: "jobId",
-          type: "uint256",
-        },
-      ],
-      name: "getJobByJobId",
-      outputs: [
-        {
-          internalType: "uint256",
-          name: "",
-          type: "uint256",
-        },
-        {
-          internalType: "string",
-          name: "",
-          type: "string",
-        },
-        {
-          internalType: "string",
-          name: "",
-          type: "string",
-        },
-        {
-          internalType: "string",
-          name: "",
-          type: "string",
-        },
-        {
-          internalType: "string[]",
-          name: "",
-          type: "string[]",
-        },
-        {
-          internalType: "uint256",
-          name: "",
-          type: "uint256",
-        },
-        {
-          internalType: "string",
-          name: "",
-          type: "string",
-        },
-        {
-          internalType: "address",
-          name: "",
-          type: "address",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [
-        {
-          internalType: "uint256",
-          name: "proposalId",
-          type: "uint256",
-        },
-        {
-          internalType: "uint256",
-          name: "jobId",
-          type: "uint256",
-        },
-      ],
-      name: "getProposalByJobAndProposalId",
-      outputs: [
-        {
-          internalType: "uint256",
-          name: "",
-          type: "uint256",
-        },
-        {
-          internalType: "uint256",
-          name: "",
-          type: "uint256",
-        },
-        {
-          internalType: "string",
-          name: "",
-          type: "string",
-        },
-        {
-          internalType: "string",
-          name: "",
-          type: "string",
-        },
-        {
-          internalType: "uint256",
-          name: "",
-          type: "uint256",
-        },
-        {
-          internalType: "string",
-          name: "",
-          type: "string",
-        },
-        {
-          internalType: "address",
-          name: "",
-          type: "address",
         },
       ],
       stateMutability: "view",
@@ -663,6 +634,24 @@ export const deworkContract = {
     {
       inputs: [
         {
+          internalType: "uint256",
+          name: "jobId",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "proposalId",
+          type: "uint256",
+        },
+      ],
+      name: "markJobCompleted",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
           internalType: "address",
           name: "userAddress",
           type: "address",
@@ -674,6 +663,37 @@ export const deworkContract = {
         },
       ],
       name: "rateUser",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "uint256",
+          name: "proposalId",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "jobId",
+          type: "uint256",
+        },
+      ],
+      name: "rejectProposal",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "uint256",
+          name: "jobId",
+          type: "uint256",
+        },
+      ],
+      name: "startJob",
       outputs: [],
       stateMutability: "nonpayable",
       type: "function",

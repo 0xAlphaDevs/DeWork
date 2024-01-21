@@ -39,6 +39,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Proposal } from "@/lib/types";
+import { useContractWrite } from "wagmi";
+import { deworkContract } from "@/lib/contracts";
 
 export function RecievedProposalsTable({
   jobTitle,
@@ -55,6 +57,13 @@ export function RecievedProposalsTable({
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
   const [proposals, setProposals] = React.useState<Proposal[]>([]);
+
+  const { data, isSuccess, isLoading, write } = useContractWrite({
+    address: "0xF64194D00D5e6f0F519bE73B19558f37f300C03E",
+    abi: deworkContract.abi,
+    functionName: "acceptProposal",
+    args: [],
+  });
 
   React.useEffect(() => {
     setProposals(receivedProposals);
@@ -131,7 +140,14 @@ export function RecievedProposalsTable({
                 <Button
                   className="w-full"
                   onClick={() => {
-                    console.log("Accepting proposal");
+                    write({
+                      args: [proposal.proposalId, proposal.jobId],
+                    });
+                    console.log(
+                      "Accepting proposal",
+                      proposal.proposalId,
+                      proposal.jobId
+                    );
                   }}
                 >
                   Accept
