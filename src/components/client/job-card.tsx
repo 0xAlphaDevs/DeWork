@@ -37,7 +37,13 @@ export function JobCard({ job }: { job: Job }) {
   useEffect(() => {
     if (data) {
       console.log(data);
-      setReceivedProposals(data as Proposal[]);
+      // filter data where job.createdAt is not empty
+
+      const filterData = (data as Proposal[]).filter((proposal: Proposal) => {
+        return proposal.createdAt !== "";
+      });
+
+      setReceivedProposals(filterData as Proposal[]);
     }
   }, [data]);
 
