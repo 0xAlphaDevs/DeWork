@@ -23,6 +23,8 @@ const ClientDashboard = () => {
 
   useEffect(() => {
     if (data) {
+      console.log(data);
+
       setJobs(data as Job[]);
     }
   }, [data]);
