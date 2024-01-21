@@ -26,8 +26,13 @@ const Dashboard = () => {
   useEffect(() => {
     if (data) {
       console.log(data);
-      setJobs(data as Job[]);
-      setFilteredJobs(data as Job[]);
+      // filter data where job.createdAt is not empty
+
+      const filterData = (data as Job[]).filter((job: Job) => {
+        return job.createdAt !== "";
+      });
+      setJobs(filterData as Job[]);
+      setFilteredJobs(filterData as Job[]);
     }
   }, [data]);
 
