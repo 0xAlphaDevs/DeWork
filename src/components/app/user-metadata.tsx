@@ -42,7 +42,7 @@ export function UserMetadata({ setRecheckUser }: { setRecheckUser: any }) {
     address: "0x1FD044132dDf03dF133bC6dB12Bd7C4093857523",
     abi: deworkContract.abi,
     functionName: "createUser",
-    args: [address],
+    args: [],
   });
 
   function handleClick() {
@@ -67,8 +67,8 @@ export function UserMetadata({ setRecheckUser }: { setRecheckUser: any }) {
     try {
       const newUser = constructUser(
         formData.name,
-        formData.location,
-        formData.userType
+        formData.userType,
+        formData.location
       );
       console.log(" Data: ", formData);
       // TO DO: call register function from smart contract

@@ -38,7 +38,9 @@ export default function Home() {
     args: [address],
     watch: true,
     onSuccess: (data: any) => {
-      switch (data[2]) {
+      console.log(data);
+
+      switch (data.userType) {
         case "client":
           router.push("/client/dashboard");
           break;
