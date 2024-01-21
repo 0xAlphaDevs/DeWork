@@ -39,8 +39,9 @@ import {
 } from "@/components/ui/table";
 import { Filter } from "../app/filter";
 import { Proposal } from "@/lib/types";
+import { Badge } from "../ui/badge";
 
-export function OngoinJobtable({
+export function OngoingJobtable({
   ongoingProposals,
 }: {
   ongoingProposals: Proposal[];
@@ -68,9 +69,10 @@ export function OngoinJobtable({
     {
       accessorKey: "jobId",
       header: "Job Id",
-      cell: ({ row }) => (
-        <div className="capitalize">{row.getValue("jobId")}</div>
-      ),
+      cell: ({ row }) => {
+        const jobId = parseInt(row.getValue("jobId"));
+        return <div className="capitalize">{jobId}</div>;
+      },
     },
     {
       accessorKey: "createdBy",
@@ -83,7 +85,9 @@ export function OngoinJobtable({
       accessorKey: "status",
       header: "Status",
       cell: ({ row }) => (
-        <div className="lowercase">{row.getValue("status")}</div>
+        <div className=" uppercase cursor-default font-semibold px-2 bg-green-50 hover:text-white hover:bg-green-900 dark:bg-purple-200 dark:text-purple-900 dark:hover:text-purple-300 dark:hover:bg-purple-900 inline-block rounded-full ">
+          {row.getValue("status")}
+        </div>
       ),
       filterFn: (row, id, value) => {
         // Here, explicitly specify the type of the 'value' parameter
@@ -94,25 +98,22 @@ export function OngoinJobtable({
       },
     },
     {
-      accessorKey: "startDate",
+      accessorKey: "createdAt",
       header: () => <div className="">Start Date</div>,
       cell: ({ row }) => {
-        const startDate = new Date(row.getValue("startDate"));
-        const formattedDate = startDate.toLocaleDateString();
-
         return (
           <div className=" font-semibold px-2 bg-green-50 hover:text-white hover:bg-green-900 dark:bg-purple-200 dark:text-purple-900 dark:hover:text-purple-300 dark:hover:bg-purple-900 inline-block rounded-full ">
-            {formattedDate}
+            {row.getValue("createdAt")}
           </div>
         );
       },
     },
 
     {
-      accessorKey: "budget",
+      accessorKey: "bid",
       header: () => <div className="">Budget</div>,
       cell: ({ row }) => {
-        const amount = parseFloat(row.getValue("budget"));
+        const amount = Number(row.getValue("bid"));
         const formatted = new Intl.NumberFormat("en-US", {
           style: "currency",
           currency: "USD",
@@ -130,10 +131,10 @@ export function OngoinJobtable({
         return (
           <Button
             onClick={() => {
-              console.log("Mark the job as fully completed");
+              console.log("Mark the job as approved by client");
             }}
           >
-            Accept Job
+            Approve Job
           </Button>
         );
       },

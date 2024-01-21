@@ -3,7 +3,7 @@ import { useAccount } from "wagmi";
 import { useRouter } from "next/router";
 import getUser from "@/lib/hooks/getUser";
 import { ClientNavbar } from "@/components/client/client-navbar";
-import { OngoinJobtable } from "@/components/client/ongoing-job-table";
+import { OngoingJobtable } from "@/components/client/ongoing-job-table";
 import { deworkContract } from "@/lib/contracts";
 import { useContractRead } from "wagmi";
 import { Proposal } from "@/lib/types";
@@ -18,7 +18,7 @@ const OngoingJobs = () => {
   const { data } = useContractRead({
     abi: deworkContract.abi,
     address: "0xF64194D00D5e6f0F519bE73B19558f37f300C03E",
-    functionName: "getAllActiveProposals",
+    functionName: "getAllOngoingProposalsForClient",
     args: [address],
   });
 
@@ -39,7 +39,7 @@ const OngoingJobs = () => {
         <ClientNavbar />
       </div>
       <div className="flex justify-center items-center ">
-        <OngoinJobtable ongoingProposals={ongoingProposals} />
+        <OngoingJobtable ongoingProposals={ongoingProposals} />
       </div>
     </>
   );
