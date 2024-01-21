@@ -12,52 +12,61 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { PlusCircledIcon, CheckCircledIcon } from "@radix-ui/react-icons";
+import { useContractWrite } from "wagmi";
+import { deworkContract } from "@/lib/contracts";
 
-const SendProposalForm = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [sendRequestSuccess, setSendRequestSuccess] = useState(false);
+const SendProposalForm = ({ jobId }: { jobId: string }) => {
   const [formData, setFormData] = useState({
     description: "",
-    budget: "",
+    bid: "",
+  });
+
+  const { data, isSuccess, isLoading, write } = useContractWrite({
+    address: "0xeDe54e20dD081FE70cAE3fa46689E12d175117be",
+    abi: deworkContract.abi,
+    functionName: "createProposal",
+    args: [],
   });
 
   function handleClick() {
     // reset all state values
     setFormData({
       description: "",
-      budget: "",
+      bid: "",
     });
-    setSendRequestSuccess(false);
-    setIsLoading(false);
   }
 
-  const constructJobData = (description: string, budget: string) => {
+  const constructProposalData = (description: string, bid: string) => {
     const currentDate = new Date().toLocaleDateString();
     const currentTime = new Date().toLocaleTimeString();
 
-    const newJobData = {
-      description: description,
-      budget: budget,
+    const proposalData = {
+      jobId: jobId,
       createdAt: `${currentDate} ${currentTime}`,
+      bid: bid,
+      description: description,
     };
-    return newJobData;
+    return proposalData;
   };
 
-  async function sendData() {
+  async function createProposal() {
     try {
-      setIsLoading(true);
-      const newJobData = constructJobData(
+      const newProposalData = constructProposalData(
         formData.description,
-
-        formData.budget
+        formData.bid
       );
-      console.log(" Data: ", newJobData);
+      console.log(" Data: ", newProposalData);
 
-      setIsLoading(false);
-      setSendRequestSuccess(true);
+      write({
+        args: [
+          newProposalData.jobId,
+          newProposalData.createdAt,
+          newProposalData.bid,
+          newProposalData.description,
+        ],
+      });
     } catch (error) {
       console.error("Error submitting record:", error);
-      setIsLoading(false);
     }
   }
 
@@ -65,7 +74,7 @@ const SendProposalForm = () => {
     e.preventDefault();
     console.log("Creating request...");
     console.log("Form Data: ", formData);
-    await sendData();
+    await createProposal();
   };
 
   return (
@@ -87,7 +96,7 @@ const SendProposalForm = () => {
             </div>
           ) : (
             <>
-              {!sendRequestSuccess ? (
+              {!isSuccess ? (
                 <>
                   <DialogHeader>
                     <DialogTitle>Send a Proposal.</DialogTitle>
@@ -125,11 +134,11 @@ const SendProposalForm = () => {
                           type="number"
                           placeholder="enter your bid"
                           className="col-span-3"
-                          value={formData.budget}
+                          value={formData.bid}
                           onChange={(e: { target: { value: any } }) =>
                             setFormData({
                               ...formData,
-                              budget: e.target.value,
+                              bid: e.target.value,
                             })
                           }
                           required

@@ -83,7 +83,7 @@ export function JobCard({ job }: { job: Job }) {
             <p className="font-semibold">Posted Date : {job.createdAt}</p>
           </div>
           <div className="flex gap-4">
-            <SendProposalForm />
+            <SendProposalForm jobId={job.jobId.toString()} />
           </div>
         </CardFooter>
       </Card>

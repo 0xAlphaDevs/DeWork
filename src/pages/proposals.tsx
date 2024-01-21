@@ -1,44 +1,38 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 import { useRouter } from "next/router";
 import getUser from "@/lib/hooks/getUser";
 import { FreelancerNavbar } from "@/components/freelancer/freelancer-navbar";
 import { SendProposalTable } from "@/components/freelancer/send-proposal-table";
+import { deworkContract } from "@/lib/contracts";
+import { useContractRead, useContractReads } from "wagmi";
+import { Proposal } from "@/lib/types";
 
 const Proposals = () => {
   const router = useRouter();
   const { address } = useAccount();
+  const [sentProposals, setSentProposals] = useState<Proposal[]>([]);
 
-  async function checkUser(address: string) {
-    const res = await getUser(address);
-    if (res) {
-      switch (res.userType) {
-        case "freelancer":
-          console.log("freelancer wallet connected");
-          break;
-        default:
-          console.log("You are not client wallet. Redirecting to home page");
-          router.push("/");
-          break;
-      }
-    }
-  }
+  const { data } = useContractRead({
+    abi: deworkContract.abi,
+    address: "0xeDe54e20dD081FE70cAE3fa46689E12d175117be",
+    functionName: "getAllProposalsByCreator",
+    args: [address],
+  });
 
   useEffect(() => {
-    if (!address) {
-      router.push("/");
-    } else {
-      checkUser(address);
+    if (data) {
+      console.log(data);
+      setSentProposals(data as Proposal[]);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [address]);
+  }, [data]);
   return (
     <>
       <div className="px-8 py-4">
         <FreelancerNavbar />
       </div>
       <div className="">
-        <SendProposalTable />
+        <SendProposalTable sentProposals={sentProposals} />
       </div>
     </>
   );

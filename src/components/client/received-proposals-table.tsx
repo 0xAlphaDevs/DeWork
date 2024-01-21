@@ -123,8 +123,14 @@ const columns: ColumnDef<Proposal>[] = [
     },
   },
 ];
-
-export function RecievedProposalsTable({ jobTitle }: { jobTitle: string }) {
+// TO DO : Fill all proposals in table
+export function RecievedProposalsTable({
+  jobTitle,
+  proposals,
+}: {
+  jobTitle: string;
+  proposals: Proposal[];
+}) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []

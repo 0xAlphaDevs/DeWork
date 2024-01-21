@@ -32,7 +32,6 @@ interface CreateJobForm {
 
 const CreateNewJobForm = () => {
   // const [isLoading, setIsLoading] = useState(false);
-  const [sendRequestSuccess, setSendRequestSuccess] = useState(false);
   const [formData, setFormData] = useState<CreateJobForm>({
     title: "",
     description: "",
@@ -55,8 +54,6 @@ const CreateNewJobForm = () => {
       tags: "",
       budget: "",
     });
-    setSendRequestSuccess(false);
-    // setIsLoading(false);
   }
 
   const constructJobData = (
@@ -101,7 +98,6 @@ const CreateNewJobForm = () => {
       //   const result = await saveJobData(formData.title);
 
       // setIsLoading(false);
-      setSendRequestSuccess(true);
     } catch (error) {
       console.error("Error submitting record:", error);
       // setIsLoading(false);
@@ -247,7 +243,7 @@ const CreateNewJobForm = () => {
               ) : (
                 <div className="flex flex-col gap-4 items-center">
                   <CheckCircledIcon className="w-20 h-20 text-green-500" />
-                  <p>Job created Successfully</p>
+                  <p>Job created Successfully </p>
                 </div>
               )}
             </>

@@ -20,9 +20,26 @@ import {
 } from "lucide-react";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { RecievedProposalsTable } from "./received-proposals-table";
+import { useContractRead } from "wagmi";
+import { deworkContract } from "@/lib/contracts";
+import { Proposal } from "@/lib/types";
 
 export function JobCard({ job }: { job: Job }) {
+  const [proposals, setProposals] = useState<Proposal[]>([]);
   // fetch all proposals for this job
+  const { data } = useContractRead({
+    abi: deworkContract.abi,
+    address: "0xeDe54e20dD081FE70cAE3fa46689E12d175117be",
+    functionName: "getAllActiveProposals",
+    args: [job.jobId],
+  });
+
+  useEffect(() => {
+    if (data) {
+      console.log(data);
+      setProposals(data as Proposal[]);
+    }
+  }, [data]);
 
   return (
     <div className="p-8 grid gap-8 ">
@@ -83,8 +100,10 @@ export function JobCard({ job }: { job: Job }) {
                 <Button>View Proposals</Button>
               </DialogTrigger>
               <DialogContent className=" max-w-[90%]">
-                {/* TO DO Send Proposals data here */}
-                <RecievedProposalsTable jobTitle={job.title} />
+                <RecievedProposalsTable
+                  jobTitle={job.title}
+                  proposals={proposals}
+                />
               </DialogContent>
             </Dialog>
             <Button>Close Job</Button>
