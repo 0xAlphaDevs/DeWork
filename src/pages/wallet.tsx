@@ -7,11 +7,21 @@ import { FreelancerNavbar } from "@/components/freelancer/freelancer-navbar";
 import { MapPin, Star } from "lucide-react";
 import { StarFilledIcon } from "@radix-ui/react-icons";
 import { useBalance } from "wagmi";
+import { deworkContract } from "@/lib/contracts";
+import { useContractRead } from "wagmi";
 
 const Wallet = () => {
   const router = useRouter();
   const { address } = useAccount();
   const [maticBalance, setMaticBalance] = useState<number>(0);
+
+  const { data } = useContractRead({
+    abi: deworkContract.abi,
+    address: "0x1FD044132dDf03dF133bC6dB12Bd7C4093857523",
+    functionName: "getUser",
+    args: [address],
+    chainId: 80001,
+  });
 
   const balance = useBalance({
     address: address,
@@ -39,13 +49,15 @@ const Wallet = () => {
       <div className="flex flex-col gap-10 p-12">
         <div className="flex justify-center items-center">
           <div className="flex justify-center font-semibold text-6xl">
-            Hello , X
+            Hello , {data ? (data as any).name : ""}
           </div>
         </div>
         <div className="flex justify-center">
           <div className="flex gap-2 items-center">
             <MapPin />
-            <p className="font-thin text-lg">Delhi, India</p>
+            <p className="font-thin text-lg">
+              {data ? (data as any).location : ""}
+            </p>
           </div>
 
           {/* <div className="flex gap-2 items-center">
