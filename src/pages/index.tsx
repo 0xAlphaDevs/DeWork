@@ -117,33 +117,31 @@ export default function Home() {
       <div className="grid grid-cols-3 gap-8 px-20 pb-8 ">
         <Card className="bg-opacity-65 shadow-lg dark:bg-purple-300 dark:bg-opacity-15 cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110">
           <CardHeader>
-            <CardTitle className="text-center">Feature Heading</CardTitle>
+            <CardTitle className="text-center">Decentralized</CardTitle>
             <CardDescription className="dark:text-white">
-              Lorem Ipsum has been the industry standard dummy text ever since
-              the 1500s, when an unknown printer took a galley of type and
-              scrambled it to make a type specimen book.
+              DeWork is a decentralized freelancing platform connecting
+              businesses and professionals
             </CardDescription>
           </CardHeader>
         </Card>
 
         <Card className="bg-opacity-65 shadow-lg dark:bg-purple-300 dark:bg-opacity-15 cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110">
           <CardHeader>
-            <CardTitle className="text-center">Feature Heading</CardTitle>
+            <CardTitle className="text-center">GHO Payments</CardTitle>
             <CardDescription className="dark:text-white">
-              Lorem Ipsum has been the industry standard dummy text ever since
-              the 1500s, when an unknown printer took a galley of type and
-              scrambled it to make a type specimen book.Feature Description
+              Payments in DeWork are facilitated by decentralized stablecoin GHO
+              which is bridged from ETH Sepolia using CCIP. (Lock and Mint
+              model)
             </CardDescription>
           </CardHeader>
         </Card>
 
         <Card className="bg-opacity-65 shadow-lg dark:bg-purple-300 dark:bg-opacity-15 cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110">
           <CardHeader>
-            <CardTitle className="text-center">Feature Heading</CardTitle>
+            <CardTitle className="text-center">Secure</CardTitle>
             <CardDescription className="dark:text-white">
-              Lorem Ipsum has been the industry standard dummy text ever since
-              the 1500s, when an unknown printer took a galley of type and
-              scrambled it to make a type specimen book.
+              Once a propsal is accepted, GHO is locked in DeWork contract and
+              released upon job completion.
             </CardDescription>
           </CardHeader>
         </Card>
