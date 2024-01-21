@@ -20,47 +20,66 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { CheckCircledIcon } from "@radix-ui/react-icons";
+import { deworkContract } from "@/lib/contracts";
+import { useContractWrite } from "wagmi";
+import { useAccount } from "wagmi";
 
 interface FormData {
-  userName: string;
+  name: string;
   userType: string;
-  userLocation: string;
+  location: string;
 }
 
 export function UserMetadata({ setRecheckUser }: { setRecheckUser: any }) {
-  const [isLoading, setIsLoading] = useState(false);
-  const [userRegistered, setUserRegistered] = useState(false);
+  const { address } = useAccount();
   const [formData, setFormData] = useState<FormData>({
-    userName: "",
+    name: "",
     userType: "",
-    userLocation: "",
+    location: "",
+  });
+
+  const { data, isSuccess, isLoading, write } = useContractWrite({
+    address: "0xF64194D00D5e6f0F519bE73B19558f37f300C03E",
+    abi: deworkContract.abi,
+    functionName: "createUser",
+    args: [address],
   });
 
   function handleClick() {
     // reset all state values
     setFormData({
-      userName: "",
+      name: "",
       userType: "",
-      userLocation: "",
+      location: "",
     });
-    setUserRegistered(false);
-    setIsLoading(false);
   }
 
-  async function registerUser() {
+  const constructUser = (name: string, userType: string, location: string) => {
+    const newUser = {
+      name: name,
+      location: location,
+      userType: userType,
+    };
+    return newUser;
+  };
+
+  async function createUser() {
     try {
-      setIsLoading(true);
+      const newUser = constructUser(
+        formData.name,
+        formData.location,
+        formData.userType
+      );
       console.log(" Data: ", formData);
       // TO DO: call register function from smart contract
-
+      write({
+        args: [newUser.name, newUser.location, newUser.userType],
+      });
       setTimeout(() => {
-        setIsLoading(false);
-        setUserRegistered(true);
         setRecheckUser((prev: boolean) => !prev);
       }, 2000);
     } catch (error) {
       console.error("Error submitting metaData:", error);
-      setIsLoading(false);
     }
   }
 
@@ -78,7 +97,7 @@ export function UserMetadata({ setRecheckUser }: { setRecheckUser: any }) {
     e.preventDefault();
     console.log("Registering...");
     console.log("Form Data: ", formData);
-    await registerUser();
+    await createUser();
   };
 
   return (
@@ -91,12 +110,11 @@ export function UserMetadata({ setRecheckUser }: { setRecheckUser: any }) {
       <DialogContent className="sm:max-w-[425px]">
         {isLoading ? (
           <div className="flex flex-col items-center justify-center h-40 gap-4">
-            {/* <Loader /> */}
             <p>Registering user...</p>
           </div>
         ) : (
           <>
-            {!userRegistered ? (
+            {!isSuccess ? (
               <>
                 <DialogHeader>
                   <DialogTitle>Enter Details</DialogTitle>
@@ -107,15 +125,15 @@ export function UserMetadata({ setRecheckUser }: { setRecheckUser: any }) {
                 <form onSubmit={handleSubmitRequest}>
                   <div className="grid gap-4 py-4">
                     <div className="grid grid-cols-4 items-center gap-4">
-                      <Label htmlFor="userName" className="text-right">
+                      <Label htmlFor="name" className="text-right">
                         Name
                       </Label>
                       <Input
-                        id="userName"
-                        value={formData.userName}
+                        id="name"
+                        value={formData.name}
                         className="col-span-3"
                         onChange={handleChange}
-                        name="userName"
+                        name="name"
                       />
                     </div>
                     <div className="grid grid-cols-4 items-center gap-4">
@@ -144,15 +162,15 @@ export function UserMetadata({ setRecheckUser }: { setRecheckUser: any }) {
                       </Select>
                     </div>
                     <div className="grid grid-cols-4 items-center gap-4">
-                      <Label htmlFor="userLocation" className="text-right">
+                      <Label htmlFor="location" className="text-right">
                         Location
                       </Label>
                       <Input
-                        id="userLocation"
-                        value={formData.userLocation}
+                        id="location"
+                        value={formData.location}
                         className="col-span-3"
                         onChange={handleChange}
-                        name="userLocation"
+                        name="location"
                       />
                     </div>
                   </div>
