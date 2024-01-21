@@ -136,10 +136,10 @@ export function OngoinJobtable({
     <div className="w-full p-12 ">
       <div className="flex items-center py-4">
         <Input
-          placeholder="Search a job..."
-          value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
+          placeholder="Search a job by Id..."
+          value={(table.getColumn("jobId")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("title")?.setFilterValue(event.target.value)
+            table.getColumn("jobId")?.setFilterValue(event.target.value)
           }
           className="max-w-sm w-96 font-semibold border-green-900 dark:bg-purple-100 dark:text-purple-900"
         />
