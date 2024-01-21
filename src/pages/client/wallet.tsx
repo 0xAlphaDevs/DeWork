@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
-import { useAccount } from "wagmi";
+"use-client";
+import React, { useEffect, useState } from "react";
+import { useAccount, useContractRead } from "wagmi";
 import { useRouter } from "next/router";
 import getUser from "@/lib/hooks/getUser";
 import { ClientNavbar } from "@/components/client/client-navbar";
@@ -8,31 +9,57 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { MapPin, Star } from "lucide-react";
 import { StarFilledIcon } from "@radix-ui/react-icons";
+import { useBalance } from "wagmi";
+import { deworkContract } from "@/lib/contracts";
 
 const Wallet = () => {
   const router = useRouter();
   const { address } = useAccount();
 
-  async function checkUser(address: string) {
-    const res = await getUser(address);
-    if (res) {
-      switch (res.userType) {
-        case "client":
-          console.log("client wallet connected");
-          break;
-        default:
-          console.log("You are not client wallet. Redirecting to home page");
-          router.push("/");
-          break;
-      }
-    }
-  }
+  const [maticBalance, setMaticBalance] = useState<number>(0);
+  const [ethBalance, setEthBalance] = useState<number>(0);
+  const [ghoEthBalance, setGhoEthBalance] = useState<number>(0);
+  const [ghoPolygonBalance, setGhoPolygonBalance] = useState<number>(0);
+
+  const { data } = useContractRead({
+    abi: deworkContract.abi,
+    address: "0xF64194D00D5e6f0F519bE73B19558f37f300C03E",
+    functionName: "getUser",
+    args: [address],
+    chainId: 80001,
+  });
+
+  const ghoBalanceOnEth = useBalance({
+    address: address,
+    token: "0xc4bF5CbDaBE595361438F8c6a187bDc330539c60",
+    chainId: 11155111,
+  });
+
+  const ghoBalanceOnPolygon = useBalance({
+    address: address,
+    token: "0xC6e0ED62C7e6042fDc64354273F3d51f7FAE458e",
+    chainId: 80001,
+  });
+
+  const maticBal = useBalance({
+    address: address,
+    chainId: 80001,
+  });
+
+  const ethBal = useBalance({
+    address: address,
+    chainId: 11155111,
+  });
 
   useEffect(() => {
     if (!address) {
       router.push("/");
     } else {
-      checkUser(address);
+      setMaticBalance((maticBal as any).data.formatted);
+      setEthBalance((ethBal as any).data.formatted);
+
+      setGhoEthBalance((ghoBalanceOnEth as any).data.formatted);
+      setGhoPolygonBalance((ghoBalanceOnPolygon as any).data.formatted);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address]);
@@ -44,13 +71,13 @@ const Wallet = () => {
       <div className="flex flex-col gap-10 p-12">
         <div className="flex justify-center items-center">
           <div className="flex justify-center font-semibold text-6xl">
-            Hello , X
+            Hello , {data ? (data as any)[0] : ""}
           </div>
         </div>
         <div className="flex justify-center gap-8 items-left">
           <div className="flex gap-2 items-center">
             <MapPin />
-            <p className="font-thin text-lg">Delhi, India</p>
+            <p className="font-thin text-lg">{data ? (data as any)[1] : ""}</p>
           </div>
 
           {/* <div className="flex gap-2 items-center">
@@ -71,11 +98,14 @@ const Wallet = () => {
             </CardHeader>
             <CardContent className="flex flex-col gap-8 items-left">
               <p className="font-bold text-lg">Sepolia Testnet</p>
-              <div>GHO Balance : {"100 GHO"} </div>
+              <div>ETH Balance : {Number(ethBalance).toFixed(3)} ETH </div>
+              <div>GHO Balance : {Number(ghoEthBalance).toFixed(3)} GHO </div>
               {/* <div>ETH Balance : {"0 ETH"}</div> */}
               <p className="font-bold text-lg">Polygon Mumbai Testnet</p>
-              <div>GHO Balance : {"0 GHO"}</div>
-              <div>MATIC Balance : {"0 MATIC"}</div>
+              <div>MATIC Balance : {Number(ethBalance).toFixed(3)} MATIC </div>
+              <div>
+                GHO Balance : {Number(ghoPolygonBalance).toFixed(3)} GHO
+              </div>
             </CardContent>
           </Card>
 

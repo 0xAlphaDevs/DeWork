@@ -52,7 +52,7 @@ export default function Home() {
     },
     onError: (error: any) => {
       console.log(error);
-      setIsUserRegistered(false);
+      if (address) setIsUserRegistered(false);
     },
   });
   useEffect(() => {

@@ -23,26 +23,10 @@ const Wallet = () => {
   //   chainId: 11155111,
   // });
 
-  async function checkUser(address: string) {
-    const res = await getUser(address);
-    if (res) {
-      switch (res.userType) {
-        case "freelancer":
-          console.log("freelancer wallet connected");
-          break;
-        default:
-          console.log("You are not client wallet. Redirecting to home page");
-          router.push("/");
-          break;
-      }
-    }
-  }
-
   useEffect(() => {
     if (!address) {
       router.push("/");
     } else {
-      checkUser(address);
       setMaticBalance((balance as any).data.formatted);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
