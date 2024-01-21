@@ -101,7 +101,6 @@ export function OngoinJobtable({
       enableHiding: false,
       cell: ({ row }) => {
         const payment = row.original;
-
         return (
           <Button
             onClick={() => {

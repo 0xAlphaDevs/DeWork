@@ -39,26 +39,26 @@ const Wallet = () => {
       <div className="px-8 py-4">
         <FreelancerNavbar />
       </div>
-      <div className="flex flex-col gap-20 p-12">
+      <div className="flex flex-col gap-10 p-12">
         <div className="flex justify-center items-center">
           <div className="flex justify-center font-semibold text-6xl">
             Hello , X
           </div>
         </div>
-        <div className="flex justify-center gap-8 items-left">
+        <div className="flex justify-center">
           <div className="flex gap-2 items-center">
             <MapPin />
             <p className="font-thin text-lg">Delhi, India</p>
           </div>
 
-          <div className="flex gap-2 items-center">
+          {/* <div className="flex gap-2 items-center">
             <p className="font-thin text-lg">Rating : </p>
             <StarFilledIcon className="text-yellow-500 h-8 w-8" />
             <StarFilledIcon className="text-yellow-500 h-8 w-8" />
             <StarFilledIcon className="text-yellow-500 h-8 w-8" />
             <StarFilledIcon className="text-yellow-500 h-8 w-8" />
             <StarFilledIcon className="text-gray-300 h-8 w-8" />
-          </div>
+          </div> */}
         </div>
 
         <div className="grid grid-cols-2 gap-20">

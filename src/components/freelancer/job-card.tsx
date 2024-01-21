@@ -32,19 +32,19 @@ export function JobCard({ job }: { job: Job }) {
         <CardHeader>
           <CardTitle className="flex justify-between items-center">
             {job.title}
-            <p className="px-2 py-1 text-white text-sm font-bold rounded-md bg-green-800 dark:text-black dark:bg-white">
+            <div className="px-2 py-1 text-white text-sm font-bold rounded-md bg-green-800 dark:text-black dark:bg-white">
               Job Id : {job.jobId.toString()}
-            </p>
+            </div>
           </CardTitle>
           <CardDescription>
-            <p>{job.description}</p>
+            <div>{job.description}</div>
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-4">
           <div className="flex gap-2 items-center">
             <Briefcase className="h-5" />
             <div className="flex gap-4">
-              <p className="text-lg font-thin">Skills Required :</p>
+              <div className="text-lg font-thin">Skills Required :</div>
               {job.tags.map((tag, index) => (
                 <Badge
                   key={index}
@@ -57,30 +57,30 @@ export function JobCard({ job }: { job: Job }) {
           </div>
           <div className="flex gap-2 items-center">
             <BadgeDollarSignIcon className="h-5" />
-            <p className="text-lg font-thin">
+            <div className="text-lg font-thin">
               Budget : $ {job.budget.toString()}
-            </p>
+            </div>
           </div>
           <div className="flex gap-2 items-center">
             <BookUser className="h-5" />
-            <p className="text-lg font-thin">
+            <div className="text-lg font-thin">
               Total Proposals : {job.proposals}
-            </p>
+            </div>
           </div>
           <div className="flex gap-2 items-center">
             <BookUser className="h-5" />
-            <p className="text-lg font-thin">
+            <div className="text-lg font-thin">
               Creator :{" "}
               <span className="text-blue-600 dark:text-blue-400 font-normal cursor-pointer">
                 {job.createdBy}
               </span>
-            </p>
+            </div>
           </div>
         </CardContent>
         <CardFooter className="flex justify-between">
           <div className="flex gap-2 items-center">
             <Calendar className="h-5" />
-            <p className="font-semibold">Posted Date : {job.createdAt}</p>
+            <div className="font-semibold">Posted Date : {job.createdAt}</div>
           </div>
           <div className="flex gap-4">
             <SendProposalForm jobId={job.jobId.toString()} />
