@@ -41,6 +41,7 @@ import {
 import { Proposal } from "@/lib/types";
 import { useContractWrite } from "wagmi";
 import { deworkContract } from "@/lib/contracts";
+import { erc20ABI } from "wagmi";
 
 export function RecievedProposalsTable({
   jobTitle,
@@ -63,6 +64,12 @@ export function RecievedProposalsTable({
     abi: deworkContract.abi,
     functionName: "acceptProposal",
     args: [],
+  });
+
+  const { write: writeApproval } = useContractWrite({
+    address: "0xC6e0ED62C7e6042fDc64354273F3d51f7FAE458e",
+    abi: erc20ABI,
+    functionName: "approve",
   });
 
   React.useEffect(() => {
@@ -104,13 +111,13 @@ export function RecievedProposalsTable({
       accessorKey: "bid",
       header: () => <div className="">Bid Amount</div>,
       cell: ({ row }) => {
-        const amount = parseFloat(row.getValue("bid"));
+        const amount = parseFloat(row.getValue("bid")) / 10 ** 18;
         const formatted = new Intl.NumberFormat("en-US", {
           style: "currency",
           currency: "USD",
         }).format(amount);
 
-        return <div className=" font-medium">{formatted}</div>;
+        return <div className=" font-medium">{formatted} GHO</div>;
       },
     },
     {
@@ -140,6 +147,21 @@ export function RecievedProposalsTable({
                 <Button
                   className="w-full"
                   onClick={() => {
+                    writeApproval({
+                      args: [
+                        "0x1FD044132dDf03dF133bC6dB12Bd7C4093857523",
+                        BigInt(proposal.bid),
+                      ],
+                    });
+                  }}
+                >
+                  Approve DeWork
+                </Button>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Button
+                  className="w-full"
+                  onClick={() => {
                     write({
                       args: [proposal.proposalId, proposal.jobId],
                     });
@@ -151,16 +173,6 @@ export function RecievedProposalsTable({
                   }}
                 >
                   Accept
-                </Button>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Button
-                  className="w-full"
-                  onClick={() => {
-                    console.log("Reject proposal");
-                  }}
-                >
-                  Reject
                 </Button>
               </DropdownMenuItem>
             </DropdownMenuContent>

@@ -58,7 +58,7 @@ export function JobCard({ job }: { job: Job }) {
           <div className="flex gap-2 items-center">
             <BadgeDollarSignIcon className="h-5" />
             <div className="text-lg font-thin">
-              Budget : $ {job.budget.toString()}
+              Budget : $ {Number(job.budget) / 10 ** 18} GHO
             </div>
           </div>
           {/* <div className="flex gap-2 items-center">

@@ -61,16 +61,18 @@ export function OngoinJobtable({
     {
       accessorKey: "jobId",
       header: "Job Id",
-      cell: ({ row }) => (
-        <div className="capitalize">{row.getValue("jobId")}</div>
-      ),
+      cell: ({ row }) => {
+        const jobId = parseInt(row.getValue("jobId"));
+        return <div className=""> {jobId}</div>;
+      },
     },
     {
       accessorKey: "proposalId",
       header: "Proposal Id",
-      cell: ({ row }) => (
-        <div className="capitalize">{row.getValue("proposalId")}</div>
-      ),
+      cell: ({ row }) => {
+        const proposalId = parseInt(row.getValue("proposalId"));
+        return <div className="">{proposalId}</div>;
+      },
     },
     //TO DO: Show start date after the
     {
@@ -86,13 +88,13 @@ export function OngoinJobtable({
       accessorKey: "bid",
       header: () => <div className="">Bid</div>,
       cell: ({ row }) => {
-        const amount = parseFloat(row.getValue("bid"));
+        const amount = parseFloat(row.getValue("bid")) / 10 ** 18;
         const formatted = new Intl.NumberFormat("en-US", {
           style: "currency",
           currency: "USD",
         }).format(amount);
 
-        return <div className=" font-medium">{formatted}</div>;
+        return <div className=" font-medium">{formatted} GHO</div>;
       },
     },
     //TO DO
@@ -101,15 +103,7 @@ export function OngoinJobtable({
       enableHiding: false,
       cell: ({ row }) => {
         const payment = row.original;
-        return (
-          <Button
-            onClick={() => {
-              console.log("Submitting Job");
-            }}
-          >
-            Submit
-          </Button>
-        );
+        return <Button>Submit</Button>;
       },
     },
   ];

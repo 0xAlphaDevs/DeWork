@@ -112,13 +112,13 @@ export function SendProposalTable({
       accessorKey: "bid",
       header: () => <div className="">Bid Amount</div>,
       cell: ({ row }) => {
-        const amount = parseFloat(row.getValue("bid"));
+        const amount = parseFloat(row.getValue("bid")) / 10 ** 18;
         const formatted = new Intl.NumberFormat("en-US", {
           style: "currency",
           currency: "USD",
         }).format(amount);
 
-        return <div className=" font-medium">{formatted}</div>;
+        return <div className=" font-medium">{formatted} GHO</div>;
       },
     },
   ];

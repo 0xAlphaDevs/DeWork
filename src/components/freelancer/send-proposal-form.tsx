@@ -61,7 +61,7 @@ const SendProposalForm = ({ jobId }: { jobId: string }) => {
         args: [
           newProposalData.jobId,
           newProposalData.createdAt,
-          newProposalData.bid,
+          Number(newProposalData.bid) * 10 ** 18,
           newProposalData.description,
         ],
       });

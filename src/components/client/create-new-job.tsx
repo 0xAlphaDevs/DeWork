@@ -92,7 +92,7 @@ const CreateNewJobForm = () => {
           newJobData.description,
           newJobData.createdAt,
           newJobData.tags,
-          newJobData.budget,
+          Number(newJobData.budget) * 10 ** 18,
         ],
       });
       //   const result = await saveJobData(formData.title);

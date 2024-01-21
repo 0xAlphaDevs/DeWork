@@ -40,6 +40,8 @@ import {
 import { Filter } from "../app/filter";
 import { Proposal } from "@/lib/types";
 import { Badge } from "../ui/badge";
+import { useContractWrite } from "wagmi";
+import { deworkContract } from "@/lib/contracts";
 
 export function OngoingJobtable({
   ongoingProposals,
@@ -54,6 +56,12 @@ export function OngoingJobtable({
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
   const [proposals, setProposals] = React.useState<Proposal[]>([]);
+
+  const { data, isSuccess, isLoading, write } = useContractWrite({
+    address: "0x1FD044132dDf03dF133bC6dB12Bd7C4093857523",
+    abi: deworkContract.abi,
+    functionName: "approveJobCompletion",
+  });
 
   React.useEffect(() => {
     setProposals(ongoingProposals);
@@ -108,33 +116,34 @@ export function OngoingJobtable({
         );
       },
     },
-
     {
       accessorKey: "bid",
       header: () => <div className="">Budget</div>,
       cell: ({ row }) => {
-        const amount = Number(row.getValue("bid"));
+        const amount = Number(row.getValue("bid")) / 10 ** 18;
         const formatted = new Intl.NumberFormat("en-US", {
           style: "currency",
           currency: "USD",
         }).format(amount);
 
-        return <div className=" font-medium">{formatted}</div>;
+        return <div className=" font-medium">{formatted} GHO</div>;
       },
     },
     {
       id: "actions",
       enableHiding: false,
       cell: ({ row }) => {
-        const payment = row.original;
+        const proposal = row.original;
 
         return (
           <Button
             onClick={() => {
-              console.log("Mark the job as approved by client");
+              write({
+                args: [proposal.jobId, proposal.proposalId],
+              });
             }}
           >
-            Approve Job
+            Approve Completion
           </Button>
         );
       },

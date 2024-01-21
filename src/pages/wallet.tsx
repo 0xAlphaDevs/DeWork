@@ -1,3 +1,4 @@
+"use-client";
 import React, { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 import { useRouter } from "next/router";
@@ -14,12 +15,19 @@ const Wallet = () => {
   const router = useRouter();
   const { address } = useAccount();
   const [maticBalance, setMaticBalance] = useState<number>(0);
+  const [ghoPolygonBalance, setGhoPolygonBalance] = useState<number>(0);
 
   const { data } = useContractRead({
     abi: deworkContract.abi,
     address: "0x1FD044132dDf03dF133bC6dB12Bd7C4093857523",
     functionName: "getUser",
     args: [address],
+    chainId: 80001,
+  });
+
+  const ghoBalanceOnPolygon = useBalance({
+    address: address,
+    token: "0xC6e0ED62C7e6042fDc64354273F3d51f7FAE458e",
     chainId: 80001,
   });
 
@@ -38,6 +46,7 @@ const Wallet = () => {
       router.push("/");
     } else {
       setMaticBalance((balance as any).data.formatted);
+      setGhoPolygonBalance((ghoBalanceOnPolygon as any).data.formatted);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address]);
@@ -77,7 +86,7 @@ const Wallet = () => {
               <div className="border border-solid border-green-800 dark:border-purple-800 w-full" />
             </CardHeader>
             <CardContent className="flex flex-col gap-8 items-left">
-              <div>GHO Balance : {"100 GHO"} </div>
+              GHO Balance : {Number(ghoPolygonBalance).toFixed(3)} GHO
               <div>MATIC Balance : {Number(maticBalance).toFixed(2)}</div>
             </CardContent>
           </Card>

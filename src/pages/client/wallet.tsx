@@ -104,7 +104,9 @@ const Wallet = () => {
               <div>GHO Balance : {Number(ghoEthBalance).toFixed(3)} GHO </div>
               {/* <div>ETH Balance : {"0 ETH"}</div> */}
               <p className="font-bold text-lg">Polygon Mumbai Testnet</p>
-              <div>MATIC Balance : {Number(ethBalance).toFixed(3)} MATIC </div>
+              <div>
+                MATIC Balance : {Number(maticBalance).toFixed(3)} MATIC{" "}
+              </div>
               <div>
                 GHO Balance : {Number(ghoPolygonBalance).toFixed(3)} GHO
               </div>
@@ -116,13 +118,13 @@ const Wallet = () => {
               <CardTitle>Bridge GHO to Polygon Mumbai Testnet</CardTitle>
             </CardHeader>
             <CardContent className="flex flex-col gap-6 justify-center items-center">
-              <p>Amount of GHO to bridge</p>
-              <Input
+              {/* <p>Amount of GHO to bridge</p> */}
+              {/* <Input
                 type="number"
                 placeholder="Enter the amount to send"
                 className="max-w-sm w-96  border-green-900 dark:bg-purple-100 dark:text-purple-900"
-              />
-              <Button className="w-96">Send</Button>
+              /> */}
+              <Button className="w-96">Approve CCIP Contract</Button>
             </CardContent>
           </Card>
         </div>
