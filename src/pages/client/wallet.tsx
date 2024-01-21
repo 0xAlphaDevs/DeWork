@@ -53,14 +53,14 @@ const Wallet = () => {
             <p className="font-thin text-lg">Delhi, India</p>
           </div>
 
-          <div className="flex gap-2 items-center">
+          {/* <div className="flex gap-2 items-center">
             <p className="font-thin text-lg">Rating : </p>
             <StarFilledIcon className="text-yellow-500 h-8 w-8" />
             <StarFilledIcon className="text-yellow-500 h-8 w-8" />
             <StarFilledIcon className="text-yellow-500 h-8 w-8" />
             <StarFilledIcon className="text-yellow-500 h-8 w-8" />
             <StarFilledIcon className="text-gray-300 h-8 w-8" />
-          </div>
+          </div> */}
         </div>
 
         <div className="grid grid-cols-3 gap-20">
@@ -72,10 +72,10 @@ const Wallet = () => {
             <CardContent className="flex flex-col gap-8 items-left">
               <p className="font-bold text-lg">Sepolia Testnet</p>
               <div>GHO Balance : {"100 GHO"} </div>
-              <div>ETH Balance : {"0 ETH"}</div>
+              {/* <div>ETH Balance : {"0 ETH"}</div> */}
               <p className="font-bold text-lg">Polygon Mumbai Testnet</p>
               <div>GHO Balance : {"0 GHO"}</div>
-              <div>MATIC Balance : {"0 ETH"}</div>
+              <div>MATIC Balance : {"0 MATIC"}</div>
             </CardContent>
           </Card>
 

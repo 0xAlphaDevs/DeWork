@@ -79,7 +79,7 @@ const Wallet = () => {
             </CardHeader>
             <CardContent className="flex flex-col gap-8 items-left">
               <div>GHO Balance : {"0 GHO"}</div>
-              <div>MATIC Balance : {"0 ETH"}</div>
+              <div>MATIC Balance : {"0 MATIC"}</div>
             </CardContent>
           </Card>
         </div>
