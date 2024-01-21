@@ -155,8 +155,10 @@ export function UserMetadata({ setRecheckUser }: { setRecheckUser: any }) {
                         </SelectTrigger>
                         <SelectContent>
                           <SelectGroup>
-                            <SelectItem value="health">Client</SelectItem>
-                            <SelectItem value="travel">Freelancer</SelectItem>
+                            <SelectItem value="client">Client</SelectItem>
+                            <SelectItem value="freelancer">
+                              Freelancer
+                            </SelectItem>
                           </SelectGroup>
                         </SelectContent>
                       </Select>

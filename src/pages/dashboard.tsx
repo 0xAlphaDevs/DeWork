@@ -23,6 +23,29 @@ const Dashboard = () => {
     args: [],
   });
 
+  const {} = useContractRead({
+    abi: deworkContract.abi,
+    address: "0xF64194D00D5e6f0F519bE73B19558f37f300C03E",
+    functionName: "getUser",
+    args: [address],
+    onSuccess: (data: any) => {
+      switch (data[2]) {
+        case "client":
+          router.push("/client/dashboard");
+          break;
+        case "freelancer":
+          break;
+        default:
+          router.push("/dashboard");
+          break;
+      }
+    },
+    onError: (error: any) => {
+      console.log(error);
+      router.push("/");
+    },
+  });
+
   useEffect(() => {
     if (data) {
       console.log(data);
@@ -53,26 +76,9 @@ const Dashboard = () => {
     setFilteredJobs(filtered);
   };
 
-  async function checkUser(address: string) {
-    const res = await getUser(address);
-    if (res) {
-      switch (res.userType) {
-        case "freelancer":
-          console.log("freelancer wallet connected");
-          break;
-        default:
-          console.log("You are not client wallet. Redirecting to home page");
-          router.push("/");
-          break;
-      }
-    }
-  }
-
   useEffect(() => {
     if (!address) {
       router.push("/");
-    } else {
-      checkUser(address);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address]);

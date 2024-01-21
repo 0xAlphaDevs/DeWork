@@ -29,26 +29,35 @@ const ClientDashboard = () => {
     }
   }, [data]);
 
-  async function checkUser(address: string) {
-    const res = await getUser(address);
-    if (res) {
-      switch (res.userType) {
+  const {} = useContractRead({
+    abi: deworkContract.abi,
+    address: "0xF64194D00D5e6f0F519bE73B19558f37f300C03E",
+    functionName: "getUser",
+    args: [address],
+    watch: true,
+    onSuccess: (data: any) => {
+      switch (data[2]) {
         case "client":
-          console.log("client wallet connected");
+          router.push("/client/dashboard");
+          break;
+        case "freelancer":
+          router.push("/dashboard");
           break;
         default:
-          console.log("You are not client wallet. Redirecting to home page");
-          router.push("/");
+          router.push("/dashboard");
           break;
       }
-    }
-  }
+    },
+    onError: (error: any) => {
+      console.log(error);
+      router.push("/");
+    },
+  });
 
   useEffect(() => {
     if (!address) {
       router.push("/");
     } else {
-      checkUser(address);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address]);

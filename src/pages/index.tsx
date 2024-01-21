@@ -21,6 +21,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { UserMetadata } from "@/components/app/user-metadata";
+import { deworkContract } from "@/lib/contracts";
+import { useContractRead } from "wagmi";
 
 export default function Home() {
   const router = useRouter();
@@ -29,35 +31,37 @@ export default function Home() {
   const [isUserRegistered, setIsUserRegistered] = useState(true);
   const [recheckUser, setRecheckUser] = useState<boolean>(false);
 
-  async function checkUser(address: string) {
-    console.log("checking user");
-
-    const res = await getUser(address);
-    if (res) {
-      switch (res.userType) {
+  const {} = useContractRead({
+    abi: deworkContract.abi,
+    address: "0xF64194D00D5e6f0F519bE73B19558f37f300C03E",
+    functionName: "getUser",
+    args: [address],
+    watch: true,
+    onSuccess: (data: any) => {
+      switch (data[2]) {
         case "client":
-          console.log("client wallet connected");
           router.push("/client/dashboard");
           break;
         case "freelancer":
-          console.log("freelancer wallet connected");
           router.push("/dashboard");
+
           break;
         default:
-          console.log("user not found. Please sign up");
-          setIsUserRegistered(false);
+          router.push("/dashboard");
           break;
       }
-    }
-  }
-
+    },
+    onError: (error: any) => {
+      console.log(error);
+      setIsUserRegistered(false);
+    },
+  });
   useEffect(() => {
     if (address) {
       console.log("wallet connected", address);
-      checkUser(address);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [address, recheckUser]);
+  }, [address]);
 
   return (
     <div>
