@@ -10,7 +10,12 @@ export type Job = {
   jobId: string;
   title: string;
   description: string;
-  status: "active" | "ongoing" | "closed";
+  status:
+    | "active"
+    | "ongoing"
+    | "completedbyfreelancer"
+    | "approvedbyclient"
+    | "closed";
   tags: string[];
   budget: number;
   proposals: number;

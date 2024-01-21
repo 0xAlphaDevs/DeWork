@@ -1,5 +1,5 @@
 export const deworkContract = {
-  address: "0x16e89169832FF505c77F4EB353e084bD5532E179",
+  address: "0xF64194D00D5e6f0F519bE73B19558f37f300C03E",
   abi: [
     {
       anonymous: false,

@@ -61,12 +61,12 @@ export function JobCard({ job }: { job: Job }) {
               Budget : $ {job.budget.toString()}
             </div>
           </div>
-          <div className="flex gap-2 items-center">
+          {/* <div className="flex gap-2 items-center">
             <BookUser className="h-5" />
             <div className="text-lg font-thin">
               Total Proposals : {job.proposals}
             </div>
-          </div>
+          </div> */}
           <div className="flex gap-2 items-center">
             <BookUser className="h-5" />
             <div className="text-lg font-thin">

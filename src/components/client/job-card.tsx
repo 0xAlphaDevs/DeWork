@@ -29,7 +29,7 @@ export function JobCard({ job }: { job: Job }) {
   // fetch all proposals for this job
   const { data } = useContractRead({
     abi: deworkContract.abi,
-    address: "0x16e89169832FF505c77F4EB353e084bD5532E179",
+    address: "0xF64194D00D5e6f0F519bE73B19558f37f300C03E",
     functionName: "getAllActiveProposals",
     args: [job.jobId],
   });
@@ -84,7 +84,7 @@ export function JobCard({ job }: { job: Job }) {
           <div className="flex gap-2 items-center">
             <BookUser className="h-5" />
             <div className="text-lg font-thin">
-              Total Recieved Proposals : {job.proposals}
+              Total Recieved Proposals : {receivedProposals.length}
             </div>
           </div>
         </CardContent>
