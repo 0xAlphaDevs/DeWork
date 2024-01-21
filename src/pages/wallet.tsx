@@ -6,10 +6,24 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { FreelancerNavbar } from "@/components/freelancer/freelancer-navbar";
 import { MapPin, Star } from "lucide-react";
 import { StarFilledIcon } from "@radix-ui/react-icons";
+import { useBalance } from "wagmi";
 
 const Wallet = () => {
   const router = useRouter();
   const { address } = useAccount();
+
+  const maticBalance = useBalance({
+    address: address,
+    chainId: 80001,
+  });
+
+  const ethBalance = useBalance({
+    address: address,
+    chainId: 11155111,
+  });
+
+  console.log("MATIC Balance :", maticBalance.data);
+  console.log("ETH Balance :", ethBalance.data);
 
   async function checkUser(address: string) {
     const res = await getUser(address);
@@ -79,7 +93,7 @@ const Wallet = () => {
             </CardHeader>
             <CardContent className="flex flex-col gap-8 items-left">
               <div>GHO Balance : {"0 GHO"}</div>
-              <div>MATIC Balance : {"0 MATIC"}</div>
+              <div>MATIC Balance : {"0 ETH"}</div>
             </CardContent>
           </Card>
         </div>
