@@ -39,9 +39,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Proposal } from "@/lib/types";
-import { log } from "console";
 
-// TO DO : Fill all proposals in table
 export function RecievedProposalsTable({
   jobTitle,
   receivedProposals,
@@ -87,8 +85,8 @@ export function RecievedProposalsTable({
       ),
     },
     {
-      accessorKey: "Freelancer",
-      header: "createdBy",
+      accessorKey: "createdBy",
+      header: "Freelancer",
       cell: ({ row }) => (
         <div className="lowercase">{row.getValue("createdBy")}</div>
       ),

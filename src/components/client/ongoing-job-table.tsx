@@ -38,117 +38,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Filter } from "../app/filter";
+import { Proposal } from "@/lib/types";
 
-const data: Payment[] = [
-  {
-    id: 1,
-    jobId: "m5gr84i9",
-    budget: 316,
-    status: "success",
-    title: "ABC",
-    startDate: new Date("2024-01-19"),
-  },
-];
-
-export type Payment = {
-  id: number;
-  jobId: string;
-  budget: number;
-  status: "pending" | "processing" | "success" | "failed";
-  title: string;
-  startDate: Date;
-};
-
-export const columns: ColumnDef<Payment>[] = [
-  {
-    accessorKey: "jobId",
-    header: "Job Id",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("jobId")}</div>
-    ),
-  },
-  {
-    accessorKey: "title",
-    header: "Job Title",
-    cell: ({ row }) => <div className="lowercase">{row.getValue("title")}</div>,
-  },
-  {
-    accessorKey: "status",
-    header: "Status",
-    cell: ({ row }) => (
-      <div className="lowercase">{row.getValue("status")}</div>
-    ),
-    filterFn: (row, id, value) => {
-      // Here, explicitly specify the type of the 'value' parameter
-      const typedValue = value as
-        | "pending"
-        | "processing"
-        | "success"
-        | "failed";
-      return typedValue.includes(
-        row.getValue(id) as "pending" | "processing" | "success" | "failed"
-      );
-    },
-  },
-  {
-    accessorKey: "startDate",
-    header: () => <div className="">Start Date</div>,
-    cell: ({ row }) => {
-      const startDate = new Date(row.getValue("startDate"));
-      const formattedDate = startDate.toLocaleDateString();
-
-      return (
-        <div className=" font-semibold px-2 bg-green-50 hover:text-white hover:bg-green-900 dark:bg-purple-200 dark:text-purple-900 dark:hover:text-purple-300 dark:hover:bg-purple-900 inline-block rounded-full ">
-          {formattedDate}
-        </div>
-      );
-    },
-  },
-
-  {
-    accessorKey: "budget",
-    header: () => <div className="">Budget</div>,
-    cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("budget"));
-      const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      }).format(amount);
-
-      return <div className=" font-medium">{formatted}</div>;
-    },
-  },
-  {
-    id: "actions",
-    enableHiding: false,
-    cell: ({ row }) => {
-      const payment = row.original;
-
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <DotsHorizontalIcon className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.jobId)}
-            >
-              Copy Job ID
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>View Freelancer Details</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
-    },
-  },
-];
-
-export function OngoinJobtable() {
+export function OngoinJobtable({
+  ongoingProposals,
+}: {
+  ongoingProposals: Proposal[];
+}) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -156,15 +52,107 @@ export function OngoinJobtable() {
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
+  const [proposals, setProposals] = React.useState<Proposal[]>([]);
+
+  React.useEffect(() => {
+    setProposals(ongoingProposals);
+  }, [ongoingProposals]);
 
   const statusOptions = React.useMemo(() => {
-    const options = data.map((row) => row.status);
+    const options = ongoingProposals.map((row) => row.status);
     const statuses = [...new Set(options)];
     return statuses.map((status) => ({ value: status, label: status }));
-  }, [data]);
+  }, [ongoingProposals]);
+
+  const columns: ColumnDef<Proposal>[] = [
+    {
+      accessorKey: "jobId",
+      header: "Job Id",
+      cell: ({ row }) => (
+        <div className="capitalize">{row.getValue("jobId")}</div>
+      ),
+    },
+    {
+      accessorKey: "createdBy",
+      header: "Freelancer",
+      cell: ({ row }) => (
+        <div className="capitalize">{row.getValue("createdBy")}</div>
+      ),
+    },
+    {
+      accessorKey: "status",
+      header: "Status",
+      cell: ({ row }) => (
+        <div className="lowercase">{row.getValue("status")}</div>
+      ),
+      filterFn: (row, id, value) => {
+        // Here, explicitly specify the type of the 'value' parameter
+        const typedValue = value as "pending" | "accepted" | "rejected";
+        return typedValue.includes(
+          row.getValue(id) as "pending" | "processing" | "success" | "failed"
+        );
+      },
+    },
+    {
+      accessorKey: "startDate",
+      header: () => <div className="">Start Date</div>,
+      cell: ({ row }) => {
+        const startDate = new Date(row.getValue("startDate"));
+        const formattedDate = startDate.toLocaleDateString();
+
+        return (
+          <div className=" font-semibold px-2 bg-green-50 hover:text-white hover:bg-green-900 dark:bg-purple-200 dark:text-purple-900 dark:hover:text-purple-300 dark:hover:bg-purple-900 inline-block rounded-full ">
+            {formattedDate}
+          </div>
+        );
+      },
+    },
+
+    {
+      accessorKey: "budget",
+      header: () => <div className="">Budget</div>,
+      cell: ({ row }) => {
+        const amount = parseFloat(row.getValue("budget"));
+        const formatted = new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency: "USD",
+        }).format(amount);
+
+        return <div className=" font-medium">{formatted}</div>;
+      },
+    },
+    {
+      id: "actions",
+      enableHiding: false,
+      cell: ({ row }) => {
+        const payment = row.original;
+
+        return (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="h-8 w-8 p-0">
+                <span className="sr-only">Open menu</span>
+                <DotsHorizontalIcon className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem
+                onClick={() => navigator.clipboard.writeText(payment.jobId)}
+              >
+                Copy Job ID
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>View Freelancer Details</DropdownMenuItem>
+              <DropdownMenuItem>View payment details</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        );
+      },
+    },
+  ];
 
   const table = useReactTable({
-    data,
+    data: proposals,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -187,10 +175,10 @@ export function OngoinJobtable() {
       <div className="flex items-center py-4">
         <div className="flex items-center gap-3 py-4">
           <Input
-            placeholder="Search a job..."
-            value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
+            placeholder="Search a job Id..."
+            value={(table.getColumn("jobId")?.getFilterValue() as string) ?? ""}
             onChange={(event) =>
-              table.getColumn("title")?.setFilterValue(event.target.value)
+              table.getColumn("jobId")?.setFilterValue(event.target.value)
             }
             className="max-w-sm w-96 font-semibold border-green-900 dark:bg-purple-100 dark:text-purple-900"
           />

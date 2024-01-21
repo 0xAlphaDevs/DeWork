@@ -6,7 +6,6 @@ import { OngoinJobtable } from "@/components/freelancer/ongoing-job-table";
 import { deworkContract } from "@/lib/contracts";
 import { useContractRead } from "wagmi";
 import { Proposal } from "@/lib/types";
-import { SendToBack } from "lucide-react";
 
 const OngoingJobs = () => {
   const { address } = useAccount();
