@@ -34,9 +34,8 @@ const ClientDashboard = () => {
     address: "0x1FD044132dDf03dF133bC6dB12Bd7C4093857523",
     functionName: "getUser",
     args: [address],
-    watch: true,
     onSuccess: (data: any) => {
-      switch (data[2]) {
+      switch (data.userType) {
         case "client":
           router.push("/client/dashboard");
           break;

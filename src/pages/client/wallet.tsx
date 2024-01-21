@@ -71,13 +71,15 @@ const Wallet = () => {
       <div className="flex flex-col gap-10 p-12">
         <div className="flex justify-center items-center">
           <div className="flex justify-center font-semibold text-6xl">
-            Hello , {data ? (data as any)[0] : ""}
+            Hello , {data ? (data as any).name : ""}
           </div>
         </div>
         <div className="flex justify-center gap-8 items-left">
           <div className="flex gap-2 items-center">
             <MapPin />
-            <p className="font-thin text-lg">{data ? (data as any)[1] : ""}</p>
+            <p className="font-thin text-lg">
+              {data ? (data as any).location : ""}
+            </p>
           </div>
 
           {/* <div className="flex gap-2 items-center">
