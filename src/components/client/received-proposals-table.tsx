@@ -39,97 +39,15 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Proposal } from "@/lib/types";
+import { log } from "console";
 
-const data: Proposal[] = [
-  {
-    proposalId: "sawe",
-    jobId: "m5gr84i9",
-    bid: 316,
-    status: "pending",
-    description: "I will create a website for you. I am web developer.",
-    createdAt: "19-01-2024",
-    createdBy: "0x1230840284028402840284028402840284028402",
-  },
-];
-
-const columns: ColumnDef<Proposal>[] = [
-  {
-    accessorKey: "proposalId",
-    header: "Proposal ID",
-    cell: ({ row }) => (
-      <div className="lowercase">{row.getValue("proposalId")}</div>
-    ),
-  },
-  {
-    accessorKey: "description",
-    header: "Description",
-    cell: ({ row }) => <div className="">{row.getValue("description")}</div>,
-  },
-  {
-    accessorKey: "createdAt",
-    header: "Sent Date",
-    cell: ({ row }) => (
-      <div className=" font-semibold px-2 bg-green-50 hover:text-white hover:bg-green-900 dark:bg-purple-200 dark:text-purple-900 dark:hover:text-purple-300 dark:hover:bg-purple-900 inline-block rounded-full ">
-        {row.getValue("createdAt")}
-      </div>
-    ),
-  },
-  {
-    accessorKey: "status",
-    header: "Status",
-    cell: ({ row }) => (
-      <div className="lowercase">{row.getValue("status")}</div>
-    ),
-  },
-  {
-    accessorKey: "bid",
-    header: () => <div className="">Bid Amount</div>,
-    cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("bid"));
-      const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      }).format(amount);
-
-      return <div className=" font-medium">{formatted}</div>;
-    },
-  },
-  {
-    id: "actions",
-    enableHiding: false,
-    cell: ({ row }) => {
-      const proposal = row.original;
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <DotsHorizontalIcon className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(proposal.proposalId)}
-            >
-              Copy Proposal ID
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>View Freelancer Details</DropdownMenuItem>
-            <DropdownMenuItem>Accept Proposal</DropdownMenuItem>
-            <DropdownMenuItem>Reject Proposal</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
-    },
-  },
-];
 // TO DO : Fill all proposals in table
 export function RecievedProposalsTable({
   jobTitle,
-  proposals,
+  receivedProposals,
 }: {
   jobTitle: string;
-  proposals: Proposal[];
+  receivedProposals: Proposal[];
 }) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -138,9 +56,108 @@ export function RecievedProposalsTable({
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
+  const [proposals, setProposals] = React.useState<Proposal[]>([]);
+
+  React.useEffect(() => {
+    setProposals(receivedProposals);
+  }, [receivedProposals]);
+  console.log(receivedProposals);
+
+  const columns: ColumnDef<Proposal>[] = [
+    {
+      accessorKey: "proposalId",
+      header: "Proposal Id",
+      cell: ({ row }) => {
+        const proposalId = parseInt(row.getValue("proposalId"));
+        return <div className="capitalize">{proposalId}</div>;
+      },
+    },
+    {
+      accessorKey: "description",
+      header: "Description",
+      cell: ({ row }) => <div className="">{row.getValue("description")}</div>,
+    },
+    {
+      accessorKey: "createdAt",
+      header: "Sent Date",
+      cell: ({ row }) => (
+        <div className=" font-semibold px-2 bg-green-50 hover:text-white hover:bg-green-900 dark:bg-purple-200 dark:text-purple-900 dark:hover:text-purple-300 dark:hover:bg-purple-900 inline-block rounded-full ">
+          {row.getValue("createdAt")}
+        </div>
+      ),
+    },
+    {
+      accessorKey: "Freelancer",
+      header: "createdBy",
+      cell: ({ row }) => (
+        <div className="lowercase">{row.getValue("createdBy")}</div>
+      ),
+    },
+    {
+      accessorKey: "bid",
+      header: () => <div className="">Bid Amount</div>,
+      cell: ({ row }) => {
+        const amount = parseFloat(row.getValue("bid"));
+        const formatted = new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency: "USD",
+        }).format(amount);
+
+        return <div className=" font-medium">{formatted}</div>;
+      },
+    },
+    {
+      id: "actions",
+      enableHiding: false,
+      cell: ({ row }) => {
+        const proposal = row.original;
+
+        return (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="h-8 w-8 p-0">
+                <span className="sr-only">Open menu</span>
+                <DotsHorizontalIcon className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem
+                onClick={() =>
+                  navigator.clipboard.writeText(proposal.proposalId)
+                }
+              >
+                Copy Proposal ID
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>
+                <Button
+                  className="w-full"
+                  onClick={() => {
+                    console.log("Accepting proposal");
+                  }}
+                >
+                  Accept
+                </Button>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Button
+                  className="w-full"
+                  onClick={() => {
+                    console.log("Reject proposal");
+                  }}
+                >
+                  Reject
+                </Button>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        );
+      },
+    },
+  ];
 
   const table = useReactTable({
-    data,
+    data: proposals,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -166,7 +183,7 @@ export function RecievedProposalsTable({
 
       <div className="flex items-center py-4">
         <Input
-          placeholder="Search a proposal..."
+          placeholder="Search a proposal by Id..."
           value={
             (table.getColumn("proposalId")?.getFilterValue() as string) ?? ""
           }

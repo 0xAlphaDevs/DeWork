@@ -25,7 +25,7 @@ import { deworkContract } from "@/lib/contracts";
 import { Proposal } from "@/lib/types";
 
 export function JobCard({ job }: { job: Job }) {
-  const [proposals, setProposals] = useState<Proposal[]>([]);
+  const [receivedProposals, setReceivedProposals] = useState<Proposal[]>([]);
   // fetch all proposals for this job
   const { data } = useContractRead({
     abi: deworkContract.abi,
@@ -37,7 +37,7 @@ export function JobCard({ job }: { job: Job }) {
   useEffect(() => {
     if (data) {
       console.log(data);
-      setProposals(data as Proposal[]);
+      setReceivedProposals(data as Proposal[]);
     }
   }, [data]);
 
@@ -102,7 +102,7 @@ export function JobCard({ job }: { job: Job }) {
               <DialogContent className=" max-w-[90%]">
                 <RecievedProposalsTable
                   jobTitle={job.title}
-                  proposals={proposals}
+                  receivedProposals={receivedProposals}
                 />
               </DialogContent>
             </Dialog>
