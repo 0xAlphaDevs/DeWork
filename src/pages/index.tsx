@@ -44,10 +44,9 @@ export default function Home() {
           break;
         case "freelancer":
           router.push("/dashboard");
-
           break;
         default:
-          router.push("/dashboard");
+          router.push("/");
           break;
       }
     },

@@ -34,9 +34,10 @@ const Dashboard = () => {
           router.push("/client/dashboard");
           break;
         case "freelancer":
+          router.push("/dashboard");
           break;
         default:
-          router.push("/dashboard");
+          router.push("/");
           break;
       }
     },
